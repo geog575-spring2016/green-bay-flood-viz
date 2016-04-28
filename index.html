@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Green Bay Flood Viewer</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap-slider.min.css rel=stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- jquery link -->
+    <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+
+    <!-- leaflet core and css -->
+    <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css">
+</head>
+
+<body>
+
+
+        <!-- map container -->
+        <div id="map">
+
+            <!-- pannel container -->
+            <div id='panel'>
+                <div>
+                    <h2 class="panelText">
+                        Green Bay Flood Viewer
+                    </h2>
+                </div>
+
+                <div class="input-group">
+                    <input id="chosenIndustry" class="form-control" type="text" placeholder="Choose an industry"></input>
+                    <div class="input-group-btn">
+                        <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">Industry
+                            <span class="caret"></span>
+                        </button>
+                            <ul id="Industry" class="dropdown-menu">
+                                <li>
+                                    <a href="#" id="agriculture">Agriculture</a>
+                                </li>
+                                <li>
+                                    <a href="#" id='arts'>Arts</a>
+                                </li>
+                                <li>
+                                    <a id='construction'>Construction</a>
+                                </li>
+                                <li>
+                                    <a id='education'>Eductaion</a>
+                                </li>
+                                <li>
+                                    <a id="finance">Finance</a>
+                                </li>
+                                <li>
+                                    <a id='information'>Information</a>
+                                </li>
+                                <li>
+                                    <a id='manufacturing'>Manufacturing</a>
+                                </li>
+                                <li>
+                                    <a id='professional'>Professional</a>
+                                </li>
+                                <li>
+                                    <a id='public'>Public Administration</a>
+                                </li>
+                                <li>
+                                    <a id="retail">Retail Trade</a>
+                                </li>
+                                <li>
+                                    <a id='transportation'>Transportation</a>
+                                </li>
+                                <li>
+                                    <a id="wholesale">Wholesale Trade</a>
+                                </li>
+                                <li>
+                                    <a id='other'>Other Industry</a>
+                                </li>
+                            </ul>
+                    </div>
+                </div>
+
+
+
+                <h3 class="panelText industryName"><b></b></h3>
+                <p class="panelText" id="currentYear"><p>
+                <h5 class="panelText">Slide to see the workfore percentage for the <span class="industryName"></span> industry by year.</h3>
+                <div id="sliderStuff">
+                    <input id="range" class='range-slider round'  type="range">
+
+                    <button class="btn btn-default btn-primary skip" id="reverse" >
+                        <span class="glyphicon glyphicon-step-backward glyphicon-align-left skipper" aria-hidden="true"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-primary skip" id="forward" >
+                        <span class="glyphicon glyphicon-step-forward glyphicon-align-left" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <br />
+
+                <h5 class="panelText">Choose years to see the percentage of change in the growth or reduction in the<span class="industryName"></span> industry over time. Blue is growth, red is decline.</h5>
+                <div id="yearCalculator">
+                    <div class="input-group">
+                        <input id="yearOne"class="form-control" type="text" placeholder="Choose a year"></input>
+                        <div class="input-group-btn">
+                            <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">Initial Year
+                                <span class="caret"></span>
+                            </button>
+                                <ul id="begin" class="dropdown-menu">
+                                    <li><a href="#">2008</a></li>
+                                    <li><a href="#">2009</a></li>
+                                    <li><a href="#">2010</a></li>
+                                    <li><a href="#">2011</a></li>
+                                    <li><a href="#">2012</a></li>
+                                    <li><a href="#">2013</a></li>
+                                    <li><a href="#">2014</a></li>
+                                </ul>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="input-group">
+                        <input id="yearTwo"class="form-control" type="text" placeholder="Choose a year"></input>
+                        <div class="input-group-btn">
+                            <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">End Year
+                                <span class="caret"></span>
+                            </button>
+                                <ul id="end" class="dropdown-menu">
+                                    <li><a href="#">2008</a></li>
+                                    <li><a href="#">2009</a></li>
+                                    <li><a href="#">2010</a></li>
+                                    <li><a href="#">2011</a></li>
+                                    <li><a href="#">2012</a></li>
+                                    <li><a href="#">2013</a></li>
+                                    <li><a href="#">2014</a></li>
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <br /> 
+
+                <button id="years" class="btn btn-primary yearButton">compare</button>
+            </div>
+        <!-- end map -->
+        </div>
+
+
+
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap.min.js"></script>
+
+    <!-- <script type="text/javascript" src="js/tutorials.js"></script> -->
+    <script type="text/javascript" src="js/custom.js"></script>
+<!-- body end-->
+</body>
+
+</html>

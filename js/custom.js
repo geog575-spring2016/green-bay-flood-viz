@@ -10,7 +10,15 @@ var fileArray = ['data/DummyJsons/v1.geojson',
 				 'data/DummyJsons/v6.geojson',
 				 'data/DummyJsons/v7.geojson'];
 
-var dataArray = [];
+var dikeFileArray= ['data/breakpoints.geojson',
+					'data/dike.geojson'];
+
+var lakeMIFile = 'data/LakeMichigan.geojson';
+
+var floodDataArray = [];
+var dike;
+var breakPoints;
+var lakeMichigan;
 
 var currentIndex = 0,
 	prevIndex = 0;
@@ -29,8 +37,21 @@ var cartoDB_Map = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x
 	{
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 		subdomains: 'abcd',
-	})
-	.addTo(map);
+	}).addTo(map);
+
+var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/hybrid.day/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}', {
+	attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
+	subdomains: '1234',
+	mapID: 'newest',
+	app_id: '4hRsdRmGBf2l2Hn2o1ET',
+	app_code: 'Am10DtpE3d21BS94dezWSg',
+	base: 'aerial',
+	maxZoom: 20,
+	type: 'maptile',
+	language: 'eng',
+	format: 'png8',
+	size: '256'
+});
 
 //disable drag when on info panel
 $('#panel').on('mousedown dblclick', function(e) 
@@ -42,7 +63,24 @@ $('#panel').on('mousedown dblclick', function(e)
 $('#document').ready(function() 
 {
 	getData();
-	window.setTimeout(createFloodLevelSlider(), 100000);
+	window.setTimeout(createFloodLevelSlider(), 200000);
+
+
+});
+
+// get the value for the begining year
+$('#begin li').on('click', function()
+{
+	var overlay = $(this).text();
+	console.log(overlay);
+	if(overlay == 'Satellite')
+	{
+		addSatellite();
+	}
+	else if(overlay == 'Dike Breaks')
+	{
+		updateDikeBreaks();
+	};
 });
 
 // //load first flood data when selected
@@ -143,28 +181,73 @@ function createFloodLevelSlider()
 
 	$('.range-slider').on('input', function()
 	{
+		prevIndex = currentIndex;
+		currentIndex = $(this).val();
 
-
-	prevIndex = currentIndex;
-	currentIndex = $(this).val();
-
-	// call update symbols
-	updateFloodLayers();
+		// call update symbols
+		updateFloodLayers();
 
 	});		
 };
+
+function addSatellite(overlay)
+{
+	if(map.hasLayer(cartoDB_Map))
+	{
+		map.removeLayer(cartoDB_Map);
+		map.removeLayer(lakeMichigan);
+		HERE_hybridDay.addTo(map);
+	}
+	else
+	{
+		map.removeLayer(HERE_hybridDay);
+		cartoDB_Map.addTo(map);
+		lakeMichigan.addTo(map);
+	};
+
+};
+
+function updateDikeBreaks() 
+{
+
+	if(!map.hasLayer(breakPoints))
+	{
+		dike.addTo(map);
+		breakPoints.addTo(map);
+	}
+	else 
+	{
+		var change = currentIndex - prevIndex;
+		console.log(change);
+		if(change > 0)
+		{
+			for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
+			{
+				
+			};
+
+		}
+		else if(change < 0)
+		{
+			for(var i = Number(currentIndex) + 1; i <= Number(prevIndex); i++)
+			{
+				
+			};
+		};
+	};
+};
+
 
 function updateFloodLayers()
 {
 
 	var change = currentIndex - prevIndex;
-	console.log(change);
 	if(change > 0)
 	{
 		for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
 		{
-			console.log(dataArray[i]);
-			dataArray[i].addTo(map);
+			console.log(floodDataArray[i]);
+			floodDataArray[i].addTo(map);
 			
 		};
 
@@ -173,8 +256,13 @@ function updateFloodLayers()
 	{
 		for(var i = Number(currentIndex) + 1; i <= Number(prevIndex); i++)
 		{
-			map.removeLayer(dataArray[i]);
+			map.removeLayer(floodDataArray[i]);
 		};
+	};
+
+	if(map.hasLayer(breakPoints))
+	{
+		updateDikeBreaks();
 	};
 
 };
@@ -197,7 +285,7 @@ function getData()
 			}).addTo(map);
 		}
 	}).then(function() {
-		dataArray.push(l1);
+		floodDataArray.push(l1);
 	});
 
 	for(var i = 1; i < fileArray.length; i++)
@@ -214,29 +302,57 @@ function getData()
 						return {fillColor: 'blue', stroke: false, fillOpacity: .2};
 					}
 				});
-				dataArray.push(layer);
+				floodDataArray.push(layer);
 			}
 		});
 	};
 
+	$.ajax(dikeFileArray[0], 
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			breakPoints = L.geoJson(response, 
+			{
+				style: function (feature) 
+				{
+					return {fill: 'red'};
+				}
+			});
+		}
+	});
+
+    $.ajax(dikeFileArray[1], 
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			dike = L.geoJson(response, 
+			{
+				style: function (feature) 
+				{
+					return {color: 'red'};
+				}
+			});
+		}
+	});
+
+    $.ajax(lakeMIFile, 
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			lakeMichigan = L.geoJson(response, 
+			{
+				style: function (feature) 
+				{
+					return {fillColor: 'gray', stroke: true, fillOpacity: 1};
+				}
+			}).addTo(map);
+		}
+	});
 
 
-
-
-	// $.ajax(v6, 
-	// {
-	// 	dataType: 'json',
-	// 	success: function(response)
-	// 	{
-	// 		test2 = L.geoJson(response, 
-	// 		{
-	// 			style: function (feature) 
-	// 			{
-	// 				return {fillColor: 'blue', stroke: false, fillOpacity: .2};
-	// 			}
-	// 		});
-	// 	}
-	// });
 
 };
 

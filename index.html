@@ -16,8 +16,8 @@
 
     <!-- Custom CSS -->
     <link href="css/custom.css" rel="stylesheet">
-    <link href="css/bootstrap-slider.min.css rel=stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -29,20 +29,20 @@
     <!-- leaflet core and css -->
     <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css">
-    <!---->
-    <!--button and drop down function-->
+
+        <!--button and drop down function-->
     <script>
             $(function() {
                  $( "#dialog" ).dialog({
                   autoOpen: false,
-                  show: {
-                    effect: "blind",
-                    duration: 1000
-                  },
-                  hide: {
-                    effect: "explode",
-                    duration: 1000
-                  }
+                  // show: {
+                  //   // effect: "blind",
+                  //   duration: 500
+                  // },
+                  // hide: {
+                  //   // effect: "explode",
+                  //   duration: 500
+                  // }
                 });
              
              $( "#opener" ).click(function() {
@@ -50,6 +50,7 @@
             });
           });
           </script>
+
 </head>
 
 <body>
@@ -71,56 +72,38 @@
                     </h2>
                 </div>
 
-                <div class="input-group">
+               <!--  <div class="input-group">
                     <input id="chosenIndustry" class="form-control" type="text" placeholder="Choose an industry"></input>
                     <div class="input-group-btn">
-                        <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">Industry
+                        <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">FloodLevel
                             <span class="caret"></span>
                         </button>
                             <ul id="Industry" class="dropdown-menu">
                                 <li>
-                                    <a href="#" id="agriculture">Agriculture</a>
+                                    <a id="fl579">Annual Mean 579.21</a>
                                 </li>
                                 <li>
-                                    <a href="#" id='arts'>Arts</a>
+                                    <a id='fl582'>Record High Monthly Mean 582.79</a>
                                 </li>
                                 <li>
-                                    <a id='construction'>Construction</a>
+                                    <a id='fl583'>Gage Extremem High 583.81</a>
                                 </li>
                                 <li>
-                                    <a id='education'>Eductaion</a>
+                                    <a id='fl584'>Storm of April 9, 1973 584.97</a>
                                 </li>
                                 <li>
-                                    <a id="finance">Finance</a>
+                                    <a id="fl586">Recent High + Worse Surge 586.97</a>
                                 </li>
                                 <li>
-                                    <a id='information'>Information</a>
+                                    <a id='fl588'>Record Historic Surge + Record Monthly High 588.20</a>
                                 </li>
                                 <li>
-                                    <a id='manufacturing'>Manufacturing</a>
-                                </li>
-                                <li>
-                                    <a id='professional'>Professional</a>
-                                </li>
-                                <li>
-                                    <a id='public'>Public Administration</a>
-                                </li>
-                                <li>
-                                    <a id="retail">Retail Trade</a>
-                                </li>
-                                <li>
-                                    <a id='transportation'>Transportation</a>
-                                </li>
-                                <li>
-                                    <a id="wholesale">Wholesale Trade</a>
-                                </li>
-                                <li>
-                                    <a id='other'>Other Industry</a>
+                                    <a id='fl591'>Base Flood Elevation for AE Zone 591.00</a>
                                 </li>
                             </ul>
                     </div>
                 </div>
-
+ -->
 
 
                 <h3 class="panelText industryName"><b></b></h3>

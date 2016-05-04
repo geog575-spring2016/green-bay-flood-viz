@@ -34,19 +34,17 @@ body
     height: 900px;
     width: 100%;
     display: inline-block;
-    z-index: 1;
 }
 
 #panel 
 {
-    display: inline-block;
+    position: relative;
     width: 20%;
     height: 800px;
-    vertical-align: top;
-    opacity: 50%;
-    background-color: #222222;
+    opacity: .85;
+    background-color: black;
     float: right;
-    z-index: 3;
+    z-index: 1;
 }
 
 #range
@@ -110,11 +108,9 @@ body
 }
 
 
-
-
 .panelText
 {
-    color: black;
+    color: gray;
     display: inline-block;
 }
 

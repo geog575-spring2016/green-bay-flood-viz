@@ -26,7 +26,7 @@ var currentIndex = 0,
 	prevIndex = 0;
 
 var currentLayer = 'lakes';
-var hasBreakPoints = false;
+// var hasBreakPoints = false;
 
 
 // initialize the map with geographical coordinates set on madison
@@ -134,7 +134,8 @@ $('#breaks').on('click', function()
 		// 	});
 			
 		// }
-				hasBreakPoints = true;
+
+		// hasBreakPoints = true;
 		updateDikeBreaks();
 });
 
@@ -154,6 +155,35 @@ $('#BLS').click(function()
 	
 });
 
+//load population affected
+$('#affectedPop').click(function() 
+{
+	currentLayer = 'affectedPop'; 
+	loadAffectedPopulation();
+	
+});
+
+//load property loss
+$('#propertyLost').click(function() 
+{
+	currentLayer = 'propertyLost'; 
+	loadPropertyLoss();
+	
+});
+
+//load median income
+$('#medianIncome').click(function() 
+{
+	currentLayer = 'medianIncome'; 
+	loadMedianIncome();
+	
+});
+
+
+
+//////////////////////
+/////////Slider///////
+//////////////////////
 
 // create the flood level slider
 function createFloodLevelSlider()
@@ -215,20 +245,12 @@ function createFloodLevelSlider()
 
 
 
-function addSatellite(overlay)
-{
-	if(map.hasLayer(cartoDB_Map))
-	{
-		map.removeLayer(cartoDB_Map);
-		HERE_hybridDay.addTo(map);
-	}
-	else
-	{
-		map.removeLayer(HERE_hybridDay);
-		cartoDB_Map.addTo(map);
-	};
 
-};
+
+//////////////////////
+/////Flood Levels/////
+//////////////////////
+
 
 //WTF IS GOING ON WITH THIS????
 //all layers load in the right order, except levels 6 & 7 are switched
@@ -277,16 +299,38 @@ function updateFloodLayers()
 
 	if(currentLayer != 'lakes')
 	{
-		console.log(currentLayer);
 		switch(currentLayer) 
 		{
 			case 'sovi': loadSOVI(); break;
 			case 'bls': loadBLS(); break;
+			case 'affectedPop': loadAffectedPopulation(); break;
+			case 'propertyLost': loadPropertyLoss(); break;
+			case 'medianIncome': loadMedianIncome(); break;
 		};
 	};
 
 };
 
+
+
+//////////////////////
+///////Overlays///////
+//////////////////////
+
+function addSatellite(overlay)
+{
+	if(map.hasLayer(cartoDB_Map))
+	{
+		map.removeLayer(cartoDB_Map);
+		HERE_hybridDay.addTo(map);
+	}
+	else
+	{
+		map.removeLayer(HERE_hybridDay);
+		cartoDB_Map.addTo(map);
+	};
+
+};
 
 function updateDikeBreaks()
 {
@@ -320,6 +364,7 @@ function updateDikeBreaks()
 };
 
 
+//remove all layers except the basemap
 function removeExtraLayers()
 {
 	map.eachLayer(function(layer)
@@ -330,6 +375,7 @@ function removeExtraLayers()
 		};
 	});
 };
+
 
 function loadSOVI() 
 {
@@ -343,11 +389,13 @@ function loadSOVI()
 		
 		var soviIndex = layer.feature.properties.SOVI_3CL;
 
+		//no data
 		if(!soviIndex)
 		{
 			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
 		}
 		
+		//sovi classes
 		switch(soviIndex)
 		{
 			case 'Low': layer.setStyle({fillColor: 'yellow', fillOpacity: .5, stroke: false}); break;
@@ -369,14 +417,15 @@ function loadBLS()
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
 		
-		// console.log(layer.feature.properties.EMPLOYMENT)
 		var blsIndex = layer.feature.properties.EMPLOYMENT;
 
+		//nodata
 		if(!blsIndex)
 		{
 			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
 		}
 		
+		//bls classes
 		switch(blsIndex)
 		{
 			case '<100': layer.setStyle({fillColor: 'yellow', fillOpacity: .5, stroke: false}); break;
@@ -388,6 +437,170 @@ function loadBLS()
 
 	});
 };
+
+
+//load the number of people affected
+function loadAffectedPopulation() 
+{
+
+	//remove all the layers
+	removeExtraLayers()
+
+	//add back only the current layer
+	floodDataArray[currentIndex].addTo(map);
+
+	//stylize each layer
+	floodDataArray[currentIndex].eachLayer(function(layer)
+	{
+		
+		// console.log(layer.feature.properties.TOTAL_PEOP)
+		var popIndex = layer.feature.properties.TOTAL_PEOP;
+
+		//nodata
+		// if(!popIndex)
+		// {
+		// 	layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+		// }
+		
+		//affected pop classes
+		if(popIndex < 500)
+		{ 
+			layer.setStyle({fillColor: 'yellow', fillOpacity: .5, stroke: false}); 
+		}
+		else if(popIndex < 1000)
+		{
+			layer.setStyle({fillColor: 'orange', fillOpacity: .5, stroke: false}); 
+		}
+		else if(popIndex < 1500)
+		{
+			layer.setStyle({fillColor: 'red', fillOpacity: .5, stroke: false});
+		}
+		else if(popIndex < 2000)
+		{
+			layer.setStyle({fillColor: 'purple', fillOpacity: .5, stroke: false});
+		}
+		else if(popIndex < 2500)
+		{
+			layer.setStyle({fillColor: 'green', fillOpacity: .5, stroke: false});
+		}
+		else
+		{
+			layer.setStyle({fillColor: 'black', fillOpacity: .5, stroke: false});
+		}
+
+	});
+};
+
+//load property lost
+function loadPropertyLoss() 
+{
+
+	//remove all the layers
+	removeExtraLayers()
+
+	//add back only the current layer
+	floodDataArray[currentIndex].addTo(map);
+
+	//stylize each layer
+	floodDataArray[currentIndex].eachLayer(function(layer)
+	{
+		console.log(layer.feature.properties.MEDIAN_INC)
+		
+		var propIndex = layer.feature.properties.MAX_PROPER;
+
+		//nodata
+		// if(!propIndex)
+		// {
+		// 	layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+		// }
+		
+		//affected pop classes
+		if(propIndex < 2000000)
+		{ 
+			layer.setStyle({fillColor: 'yellow', fillOpacity: .5, stroke: false}); 
+		}
+		else if(propIndex < 4000000)
+		{
+			layer.setStyle({fillColor: 'orange', fillOpacity: .5, stroke: false}); 
+		}
+		else if(propIndex < 6000000)
+		{
+			layer.setStyle({fillColor: 'red', fillOpacity: .5, stroke: false});
+		}
+		else if(propIndex < 8000000)
+		{
+			layer.setStyle({fillColor: 'purple', fillOpacity: .5, stroke: false});
+		}
+		else if(propIndex < 10000000)
+		{
+			layer.setStyle({fillColor: 'green', fillOpacity: .5, stroke: false});
+		}
+		else
+		{
+			layer.setStyle({fillColor: 'black', fillOpacity: .5, stroke: false});
+		}
+
+	});
+};
+
+//load median income
+function loadMedianIncome() 
+{
+
+	//remove all the layers
+	removeExtraLayers()
+
+	//add back only the current layer
+	floodDataArray[currentIndex].addTo(map);
+
+	//stylize each layer
+	floodDataArray[currentIndex].eachLayer(function(layer)
+	{
+		// console.log(layer.feature.properties.MEDIAN_INC)
+		
+		var incomeIndex = layer.feature.properties.MEDIAN_INC;
+
+		//income of 0
+		if(incomeIndex == 0)
+		{
+			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+		};
+		
+		//affected pop classes
+		if(incomeIndex < 15000)
+		{ 
+			layer.setStyle({fillColor: 'yellow', fillOpacity: .5, stroke: false}); 
+		}
+		else if(incomeIndex < 30000)
+		{
+			layer.setStyle({fillColor: 'orange', fillOpacity: .5, stroke: false}); 
+		}
+		else if(incomeIndex< 45000)
+		{
+			layer.setStyle({fillColor: 'red', fillOpacity: .5, stroke: false});
+		}
+		else if(incomeIndex < 60000)
+		{
+			layer.setStyle({fillColor: 'purple', fillOpacity: .5, stroke: false});
+		}
+		else if(incomeIndex < 75000)
+		{
+			layer.setStyle({fillColor: 'green', fillOpacity: .5, stroke: false});
+		}
+		else
+		{
+			layer.setStyle({fillColor: 'black', fillOpacity: .5, stroke: false});
+		}
+
+	});
+};
+
+
+
+
+//////////////////////
+///////Data Call//////
+//////////////////////
 
 
 //get the map data

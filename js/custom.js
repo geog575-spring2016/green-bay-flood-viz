@@ -72,7 +72,6 @@ $('#document').ready(function()
 $('#begin li').on('click', function()
 {
 	var overlay = $(this).text();
-	console.log(overlay);
 	if(overlay == 'Satellite')
 	{
 		addSatellite();
@@ -216,16 +215,24 @@ function updateDikeBreaks()
 		breakPoints.addTo(map);
 		breakPoints.eachLayer(function(layer)
 		{
-			console.log(layer.feature.properties.breakpoint);
-			if(layer.feature.properties.breakpoint == currentIndex+1)
+			if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
 			{
-				console.log(layer)
+				map.removeLayer(layer)
 			}
 		});
 	}
 	else 
 	{
-		map.floodDataArray[currentIndex];
+		breakPoints.eachLayer(function(layer)
+		{
+			console.log(currentIndex)
+			console.log(layer.feature.properties.breakpoint);
+			if(layer.feature.properties.breakpoint == Number(currentIndex)+1)
+			{
+				console.log('entered')
+				map.addLayer(layer)
+			}
+		});
 	};
 };
 
@@ -238,7 +245,6 @@ function updateFloodLayers()
 	{
 		for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
 		{
-			console.log(floodDataArray[i]);
 			floodDataArray[i].addTo(map);
 			
 		};

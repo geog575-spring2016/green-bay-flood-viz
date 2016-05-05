@@ -70,6 +70,22 @@ $('#document').ready(function()
 
 });
 
+
+//remove all layers from the map when reset is clicked
+$('#reset').on('click', removeLayers);
+
+function removeLayers()
+{
+	map.eachLayer(function(layer)
+	{
+		if(layer._leaflet_id != 22)
+		{
+			map.removeLayer(layer);
+		}
+	});
+};
+
+
 // get the value for the begining year
 $('#begin li').on('click', function()
 {

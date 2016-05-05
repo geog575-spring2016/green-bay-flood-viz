@@ -28,13 +28,18 @@ var currentIndex = 0,
 var currentLayer = 'lakes';
 // var hasBreakPoints = false;
 
+var topleft = L.latLng(44.6362, 	-88.1433),
+  	bottomright = L.latLng(44.4637, -87.8268
+),
+  	bounds = L.latLngBounds(topleft, bottomright);
 
 // initialize the map with geographical coordinates set on madison
 var map = L.map("map",
 	{
-		maxBounds: new L.LatLngBounds([-20, -200],[70,-10]),
+		// maxBounds: new L.LatLngBounds([-20, -200],[70,-10]),
 		minZoom: 12,
 		maxZoom: 16,
+		maxBounds: bounds
 	})
 	.setView([44.527676, -87.993452], 13);
 

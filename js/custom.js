@@ -270,6 +270,7 @@ function updateFloodLayers()
 function getData() 
 {
 
+	//first flood level layer 
 	$.ajax(fileArray[0], 
 	{
 		dataType: 'json',
@@ -287,6 +288,7 @@ function getData()
 		floodDataArray.push(l1);
 	});
 
+	//flood levels 2-7
 	for(var i = 1; i < fileArray.length; i++)
 	{
 		$.ajax(fileArray[i],
@@ -306,6 +308,7 @@ function getData()
 		});
 	};
 
+	//break points
 	$.ajax(dikeFileArray[0], 
 	{
 		dataType: 'json',
@@ -313,14 +316,15 @@ function getData()
 		{
 			breakPoints = L.geoJson(response, 
 			{
-				style: function (feature) 
-				{
-					return {fill: 'red'};
-				}
+				// style: function (feature) 
+				// {
+				// 	return {fill: 'red'};
+				// }
 			});
 		}
 	});
 
+	//dike
     $.ajax(dikeFileArray[1], 
 	{
 		dataType: 'json',
@@ -336,6 +340,7 @@ function getData()
 		}
 	});
 
+    //lake michigan
     $.ajax(lakeMIFile, 
 	{
 		dataType: 'json',

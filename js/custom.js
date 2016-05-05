@@ -2,13 +2,13 @@
 // global variables //
 //////////////////////
 
-var fileArray = ['data/DummyJsons/v1.geojson',
-				 'data/DummyJsons/v2.geojson',
-				 'data/DummyJsons/v3.geojson',
-				 'data/DummyJsons/v4.geojson',
-				 'data/DummyJsons/v5.geojson',
-				 'data/DummyJsons/v6.geojson',
-				 'data/DummyJsons/v7.geojson'];
+var fileArray = ['data/floods/v1.geojson',
+				 'data/floods/v2.geojson',
+				 'data/floods/v3.geojson',
+				 'data/floods/v4.geojson',
+				 'data/floods/v5.geojson',
+				 'data/floods/v6.geojson',
+				 'data/floods/v7.geojson'];
 
 var dikeFileArray= ['data/breakpoints.geojson',
 					'data/dike.geojson'];
@@ -214,26 +214,18 @@ function updateDikeBreaks()
 	{
 		dike.addTo(map);
 		breakPoints.addTo(map);
+		breakPoints.eachLayer(function(layer)
+		{
+			console.log(layer.feature.properties.breakpoint);
+			if(layer.feature.properties.breakpoint == currentIndex+1)
+			{
+				console.log(layer)
+			}
+		});
 	}
 	else 
 	{
-		var change = currentIndex - prevIndex;
-		console.log(change);
-		if(change > 0)
-		{
-			for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
-			{
-				
-			};
-
-		}
-		else if(change < 0)
-		{
-			for(var i = Number(currentIndex) + 1; i <= Number(prevIndex); i++)
-			{
-				
-			};
-		};
+		map.floodDataArray[currentIndex];
 	};
 };
 
@@ -346,7 +338,7 @@ function getData()
 			{
 				style: function (feature) 
 				{
-					return {fillColor: 'gray', stroke: true, fillOpacity: 1};
+					return {fillColor: 'gray', stroke: false, fillOpacity: 1};
 				}
 			}).addTo(map);
 		}

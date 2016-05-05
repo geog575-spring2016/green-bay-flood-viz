@@ -278,7 +278,12 @@ function updateFloodLayers()
 function getData()
 {
 
+<<<<<<< HEAD
+	//first flood level layer 
+	$.ajax(fileArray[0], 
+=======
 	$.ajax(fileArray[0],
+>>>>>>> origin/master
 	{
 		dataType: 'json',
 		success: function(response)
@@ -295,6 +300,7 @@ function getData()
 		floodDataArray.push(l1);
 	});
 
+	//flood levels 2-7
 	for(var i = 1; i < fileArray.length; i++)
 	{
 		$.ajax(fileArray[i],
@@ -314,22 +320,39 @@ function getData()
 		});
 	};
 
+<<<<<<< HEAD
+	//break points
+	$.ajax(dikeFileArray[0], 
+=======
 	$.ajax(dikeFileArray[0],
+>>>>>>> origin/master
 	{
 		dataType: 'json',
 		success: function(response)
 		{
 			breakPoints = L.geoJson(response,
 			{
+<<<<<<< HEAD
+				// style: function (feature) 
+				// {
+				// 	return {fill: 'red'};
+				// }
+=======
 				style: function (feature)
 				{
 					return {fill: '#755144'};
 				}
+>>>>>>> origin/master
 			});
 		}
 	});
 
+<<<<<<< HEAD
+	//dike
+    $.ajax(dikeFileArray[1], 
+=======
     $.ajax(dikeFileArray[1],
+>>>>>>> origin/master
 	{
 		dataType: 'json',
 		success: function(response)
@@ -344,6 +367,7 @@ function getData()
 		}
 	});
 
+<<<<<<< HEAD
   //   $.ajax(lakeMIFile,
 	// {
 	// 	dataType: 'json',
@@ -359,6 +383,28 @@ function getData()
 	// 	}
 	// });
 	//
+=======
+<<<<<<< HEAD
+    //lake michigan
+    $.ajax(lakeMIFile, 
+=======
+    $.ajax(lakeMIFile,
+>>>>>>> origin/master
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			lakeMichigan = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: 'gray', stroke: false, fillOpacity: 1};
+				}
+			}).addTo(map);
+		}
+	});
+
+>>>>>>> origin/master
 
 
 };

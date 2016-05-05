@@ -33,7 +33,7 @@ var map = L.map("map",
 	.setView([44.527676, -87.993452], 13);
 
 //	add a tile layer to the map
-var cartoDB_Map = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', 
+var cartoDB_Map = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
 	{
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 		subdomains: 'abcd',
@@ -54,13 +54,13 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 });
 
 //disable drag when on info panel
-$('#panel').on('mousedown dblclick', function(e) 
+$('#panel').on('mousedown dblclick', function(e)
 {
 	L.DomEvent.stopPropagation(e);
 });
 
 // load first flood data when page loads
-$('#document').ready(function() 
+$('#document').ready(function()
 {
 	getData();
 	window.setTimeout(createFloodLevelSlider(), 200000);
@@ -83,49 +83,49 @@ $('#begin li').on('click', function()
 });
 
 // //load first flood data when selected
-// $('#fl579').click(function() 
+// $('#fl579').click(function()
 // {
 // 	floodlevel = v1;
 // 	getData();
 // });
 
 // //load second flood data when selected
-// $('#fl582').click(function() 
+// $('#fl582').click(function()
 // {
 // 	floodlevel = v2;
 // 	getData();
 // });
 
 // //load third flood data when selected
-// $('fl583').click(function() 
+// $('fl583').click(function()
 // {
 // 	floodlevel = v3;
 // 	getData();
 // });
 
 // //load fourth flood data when selected
-// $('#fl584').click(function() 
+// $('#fl584').click(function()
 // {
 // 	floodlevel = v4;
 // 	getData();
 // });
 
 // //load fifth flood data when selected
-// $('#fl586').click(function() 
+// $('#fl586').click(function()
 // {
 // 	floodlevel = v5;
 // 	getData();
 // });
 
 // //load sixth flood data when selected
-// $('#fl588').click(function() 
+// $('#fl588').click(function()
 // {
 // 	floodlevel = v6;
 // 	getData();
 // });
 
 // //load seventh flood data when selected
-// $('#fl591').click(function() 
+// $('#fl591').click(function()
 // {
 // 	floodlevel = v7;
 // 	getData();
@@ -145,7 +145,7 @@ function createFloodLevelSlider()
 
 
 	$('.skip').click(function()
-	{	
+	{
 
 	// get the old index value
 	var index = $('.range-slider').val();
@@ -159,7 +159,7 @@ function createFloodLevelSlider()
 		// go back to first attribute after last attribute
 		index = index > 6 ? 6 : index;
 
-	} 
+	}
 	else if ($(this).attr('id') == 'reverse')
 	{
 		index--;
@@ -173,7 +173,7 @@ function createFloodLevelSlider()
 	currentIndex = index;
 
 
-	//Update Flood Layers 
+	//Update Flood Layers
 	updateFloodLayers();
 
 	});
@@ -186,9 +186,17 @@ function createFloodLevelSlider()
 		// call update symbols
 		updateFloodLayers();
 
-	});		
+	});
 };
-
+//linking buttons to overlays
+$('#satellite').on('click', function()
+{
+		addSatellite();
+});
+$('#breaks').on('click', function()
+{
+		updateDikeBreaks();
+});
 function addSatellite(overlay)
 {
 	if(map.hasLayer(cartoDB_Map))
@@ -206,7 +214,7 @@ function addSatellite(overlay)
 
 };
 
-function updateDikeBreaks() 
+function updateDikeBreaks()
 {
 
 	if(!map.hasLayer(breakPoints))
@@ -221,7 +229,7 @@ function updateDikeBreaks()
 			}
 		});
 	}
-	else 
+	else
 	{
 		breakPoints.eachLayer(function(layer)
 		{
@@ -247,7 +255,7 @@ function updateFloodLayers()
 		for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
 		{
 			floodDataArray[i].addTo(map);
-			
+
 		};
 
 	}
@@ -267,17 +275,17 @@ function updateFloodLayers()
 };
 
 
-function getData() 
+function getData()
 {
 
-	$.ajax(fileArray[0], 
+	$.ajax(fileArray[0],
 	{
 		dataType: 'json',
 		success: function(response)
 		{
-			l1 = L.geoJson(response, 
+			l1 = L.geoJson(response,
 			{
-				style: function (feature) 
+				style: function (feature)
 				{
 					return {fillColor: 'blue', stroke: false, fillOpacity: .2};
 				}
@@ -306,14 +314,14 @@ function getData()
 		});
 	};
 
-	$.ajax(dikeFileArray[0], 
+	$.ajax(dikeFileArray[0],
 	{
 		dataType: 'json',
 		success: function(response)
 		{
-			breakPoints = L.geoJson(response, 
+			breakPoints = L.geoJson(response,
 			{
-				style: function (feature) 
+				style: function (feature)
 				{
 					return {fill: 'red'};
 				}
@@ -321,14 +329,14 @@ function getData()
 		}
 	});
 
-    $.ajax(dikeFileArray[1], 
+    $.ajax(dikeFileArray[1],
 	{
 		dataType: 'json',
 		success: function(response)
 		{
-			dike = L.geoJson(response, 
+			dike = L.geoJson(response,
 			{
-				style: function (feature) 
+				style: function (feature)
 				{
 					return {color: 'red'};
 				}
@@ -336,14 +344,14 @@ function getData()
 		}
 	});
 
-    $.ajax(lakeMIFile, 
+    $.ajax(lakeMIFile,
 	{
 		dataType: 'json',
 		success: function(response)
 		{
-			lakeMichigan = L.geoJson(response, 
+			lakeMichigan = L.geoJson(response,
 			{
-				style: function (feature) 
+				style: function (feature)
 				{
 					return {fillColor: 'gray', stroke: false, fillOpacity: 1};
 				}
@@ -354,11 +362,3 @@ function getData()
 
 
 };
-
-
-
-
-
-
-
-

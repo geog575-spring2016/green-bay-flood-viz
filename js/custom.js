@@ -33,9 +33,11 @@ var currentLayer = 'lakes';
 var map = L.map("map",
 	{
 		maxBounds: new L.LatLngBounds([-20, -200],[70,-10]),
-
+		minZoom: 12,
+		maxZoom: 16,
 	})
 	.setView([44.527676, -87.993452], 13);
+
 
 //default tileset
 var cartoDB_Map = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
@@ -52,7 +54,8 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 	app_id: '4hRsdRmGBf2l2Hn2o1ET',
 	app_code: 'Am10DtpE3d21BS94dezWSg',
 	base: 'aerial',
-	maxZoom: 20,
+	maxZoom: 16,
+	minZoom: 12,
 	type: 'maptile',
 	language: 'eng',
 	format: 'png8',
@@ -79,7 +82,6 @@ $('#document').ready(function()
 
 
 });
-
 
 //////////////////////
 /////// Buttons //////

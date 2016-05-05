@@ -23,6 +23,8 @@ var lakeMichigan;
 var currentIndex = 0,
 	prevIndex = 0;
 
+var multipleLayers = true;
+
 
 // initialize the map with geographical coordinates set on madison
 var map = L.map("map",
@@ -80,6 +82,14 @@ $('#begin li').on('click', function()
 	{
 		updateDikeBreaks();
 	};
+});
+
+//load first flood data when selected
+$('#SOVI').click(function() 
+{
+	multipleLayers = false; 
+	loadSOVI();
+	removeExtraLayers();
 });
 
 // //load first flood data when selected
@@ -275,15 +285,46 @@ function updateFloodLayers()
 };
 
 
+function loadSOVI() 
+{
+	floodDataArray[currentIndex].eachLayer(function(layer)
+	{
+		
+		var soviIndex = layer.feature.properties.SOVI_3CL;
+
+		if(!soviIndex)
+		{
+			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+		}
+		
+		switch(soviIndex)
+		{
+			case 'Low': layer.setStyle({fillColor: 'green', fillOpacity: 1, stroke: false}); break;
+			case 'Medium': layer.setStyle({fillColor: 'red', fillOpacity: 1, stroke: false}); break;
+			case 'High': layer.setStyle({fillColor: 'orange', fillOpacity: 1, stroke: false}); break;
+		};
+
+	});
+};
+
+function removeExtraLayers()
+{
+	console.log(cartoDB_Map)
+	console.log(HERE_hybridDay)
+	map.eachLayer(function(layer)
+	{
+		if(layer._leaflet_id != 22 && layer._leaflet_id != 14496)
+		{
+			map.removeLayer(layer);
+		};
+	});
+};
+
+
 function getData()
 {
 
-<<<<<<< HEAD
-	//first flood level layer 
-	$.ajax(fileArray[0], 
-=======
 	$.ajax(fileArray[0],
->>>>>>> origin/master
 	{
 		dataType: 'json',
 		success: function(response)
@@ -320,39 +361,29 @@ function getData()
 		});
 	};
 
-<<<<<<< HEAD
-	//break points
-	$.ajax(dikeFileArray[0], 
-=======
+
+
 	$.ajax(dikeFileArray[0],
->>>>>>> origin/master
 	{
 		dataType: 'json',
 		success: function(response)
 		{
 			breakPoints = L.geoJson(response,
 			{
-<<<<<<< HEAD
 				// style: function (feature) 
 				// {
 				// 	return {fill: 'red'};
 				// }
-=======
 				style: function (feature)
 				{
 					return {fill: '#755144'};
 				}
->>>>>>> origin/master
 			});
 		}
 	});
 
-<<<<<<< HEAD
 	//dike
-    $.ajax(dikeFileArray[1], 
-=======
     $.ajax(dikeFileArray[1],
->>>>>>> origin/master
 	{
 		dataType: 'json',
 		success: function(response)
@@ -367,7 +398,6 @@ function getData()
 		}
 	});
 
-<<<<<<< HEAD
   //   $.ajax(lakeMIFile,
 	// {
 	// 	dataType: 'json',
@@ -383,28 +413,5 @@ function getData()
 	// 	}
 	// });
 	//
-=======
-<<<<<<< HEAD
-    //lake michigan
-    $.ajax(lakeMIFile, 
-=======
-    $.ajax(lakeMIFile,
->>>>>>> origin/master
-	{
-		dataType: 'json',
-		success: function(response)
-		{
-			lakeMichigan = L.geoJson(response,
-			{
-				style: function (feature)
-				{
-					return {fillColor: 'gray', stroke: false, fillOpacity: 1};
-				}
-			}).addTo(map);
-		}
-	});
-
->>>>>>> origin/master
-
 
 };

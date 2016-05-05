@@ -287,7 +287,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: 'blue', stroke: false, fillOpacity: .2};
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .5};
 				}
 			}).addTo(map);
 		}
@@ -306,7 +306,7 @@ function getData()
 				{
 					style: function(feature)
 					{
-						return {fillColor: 'blue', stroke: false, fillOpacity: .2};
+						return {fillColor: '#128AB3', stroke: false, fillOpacity: .2};
 					}
 				});
 				floodDataArray.push(layer);
@@ -323,7 +323,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fill: 'red'};
+					return {fill: '#755144'};
 				}
 			});
 		}
@@ -338,27 +338,27 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {color: 'red'};
+					return {color: '#755144'};
 				}
 			});
 		}
 	});
 
-    $.ajax(lakeMIFile,
-	{
-		dataType: 'json',
-		success: function(response)
-		{
-			lakeMichigan = L.geoJson(response,
-			{
-				style: function (feature)
-				{
-					return {fillColor: 'gray', stroke: false, fillOpacity: 1};
-				}
-			}).addTo(map);
-		}
-	});
-
+  //   $.ajax(lakeMIFile,
+	// {
+	// 	dataType: 'json',
+	// 	success: function(response)
+	// 	{
+	// 		lakeMichigan = L.geoJson(response,
+	// 		{
+	// 			style: function (feature)
+	// 			{
+	// 				return {fillColor: '#A9BDC4', stroke: false, fillOpacity: 0.5};
+	// 			}
+	// 		}).addTo(map);
+	// 	}
+	// });
+	//
 
 
 };

@@ -16,95 +16,62 @@
 
     <!-- Custom CSS -->
     <link href="css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <!-- jquery link -->
     <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
 
     <!-- leaflet core and css -->
     <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css">
-
-        <!--button and drop down function-->
-    <script>
-            $(function() {
-                 $( "#dialog" ).dialog({
-                  autoOpen: false,
-                  // show: {
-                  //   // effect: "blind",
-                  //   duration: 500
-                  // },
-                  // hide: {
-                  //   // effect: "explode",
-                  //   duration: 500
-                  // }
-                });
-             
-             $( "#opener" ).click(function() {
-              $( "#dialog" ).dialog( "open" );
-            });
-          });
-          </script>
-
 </head>
 
 <body>
-        
+
+    <!-- Navigation -->
+    <nav id="navBar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header text-center">
+                <a id="pageHeader" class="navbar-brand" href="#">Green Bay Flood Viewer</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul id="nav" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href id="aboutButton" data-toggle="modal" data-target="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- About Modal -->
+    <div id="about" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p><!--about text-->
+                    This tool provides data and maps depicting potential flooding impacts in the City of Green Bay. Water levels were calculated based on wave heights and historic storm surges seen in the area. The viewer visualises potential breaks in the Green Bay city dyke based on a set of flood levels that is adjusted using the water level slider.<br>Use the water level slider to increase and decrease the water level from the lake long term average up to historic highs. These highs include the potential damage by water based on wind events.<br>Overlays of potential property value damage give the user an indication of the potential costs to buildings different levels of flooding may have.<br>Applying the Business vulnerability index layer gives the user an estimate of potential losses to business at each lake level based on flood conditions. This data is aggregated to census block groups and was derived from Bureau of Labor Statistics.
+                </p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
         <!-- map container -->
         <div id="map">
 
             <!-- pannel container -->
             <div id='panel'>
-                <div>
-                    <h2 class="panelText">
-                        Green Bay Flood Viewer
-                    </h2>
-                </div>
-        <!--about text-->
-                <div id="dialog" title="About the Green Bay Flood Viewer">
-                  <p>This tool provides data and maps depicting potential flooding impacts in the City of Green Bay. Water levels were calculated based on wave heights and historic storm surges seen in the area. The viewer visualises potential breaks in the Green Bay city dyke based on a set of flood levels that is adjusted using the water level slider.</p><br><p>Use the water level slider to increase and decrease the water level from the lake long term average up to historic highs. These highs include the potential damage by water based on wind events.</p><br><p>Overlays of potential property value damage give the user an indication of the potential costs to buildings different levels of flooding may have.</p><br><p>Applying the Business vulnerability index layer gives the user an estimate of potential losses to business at each lake level based on flood conditions. This data is aggregated to census block groups and was derived from Bureau of Labor Statistics.</p>
-                </div>
-                 
-                <button id="opener">About</button>
-               <!--  <div class="input-group">
-                    <input id="chosenIndustry" class="form-control" type="text" placeholder="Choose an industry"></input>
-                    <div class="input-group-btn">
-                        <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">FloodLevel
-                            <span class="caret"></span>
-                        </button>
-                            <ul id="Industry" class="dropdown-menu">
-                                <li>
-                                    <a id="fl579">Annual Mean 579.21</a>
-                                </li>
-                                <li>
-                                    <a id='fl582'>Record High Monthly Mean 582.79</a>
-                                </li>
-                                <li>
-                                    <a id='fl583'>Gage Extremem High 583.81</a>
-                                </li>
-                                <li>
-                                    <a id='fl584'>Storm of April 9, 1973 584.97</a>
-                                </li>
-                                <li>
-                                    <a id="fl586">Recent High + Worse Surge 586.97</a>
-                                </li>
-                                <li>
-                                    <a id='fl588'>Record Historic Surge + Record Monthly High 588.20</a>
-                                </li>
-                                <li>
-                                    <a id='fl591'>Base Flood Elevation for AE Zone 591.00</a>
-                                </li>
-                            </ul>
-                    </div>
-                </div>
- -->
-
 
                 <h3 class="panelText industryName"><b></b></h3>
                 <p class="panelText" id="currentYear"><p>
@@ -144,25 +111,6 @@
                     </div>
 
                     <br />
-
-<!--                     <div class="input-group">
-                        <input id="yearTwo"class="form-control" type="text" placeholder="Choose a year"></input>
-                        <div class="input-group-btn">
-                            <button class="btn dropdown-toggle btn-primary years" type="button" data-toggle="dropdown">End Year
-                                <span class="caret"></span>
-                            </button>
-                                <ul id="end" class="dropdown-menu">
-                                    <li><a href="#">2008</a></li>
-                                    <li><a href="#">2009</a></li>
-                                    <li><a href="#">2010</a></li>
-                                    <li><a href="#">2011</a></li>
-                                    <li><a href="#">2012</a></li>
-                                    <li><a href="#">2013</a></li>
-                                    <li><a href="#">2014</a></li>
-                                </ul>
-                        </div>
-                    </div>
-                </div> -->
                 
                 <br />
                 <div>
@@ -173,20 +121,34 @@
                     <button id="breaks" class="btn btn-primary yearButton">Dike Breaks</button>
                 </div>  
 
+                <div>
+                    <button id="flood1" class="btn btn-primary yearButton">Flood 1</button>                    
+                </div>
 
-                <button id="flood1" class="btn btn-primary yearButton">Flood 1</button>
+                <div>
+                    <button id="flood2" class="btn btn-primary yearButton">Flood 2</button>                    
+                </div>
 
-                <button id="flood2" class="btn btn-primary yearButton">Flood 2</button>
+                <div>
+                    <button id="flood3" class="btn btn-primary yearButton">Flood 3</button>                    
+                </div>
 
-                <button id="flood3" class="btn btn-primary yearButton">Flood 3</button>
+                <div>
+                    <button id="flood4" class="btn btn-primary yearButton">Flood 4</button> 
+                </div>
 
-                <button id="flood4" class="btn btn-primary yearButton">Flood 4</button>
 
-                <button id="flood5" class="btn btn-primary yearButton">Flood 5</button>
+                <div>
+                    <button id="flood5" class="btn btn-primary yearButton">Flood 5</button>
+                </div>
 
-                <button id="flood6" class="btn btn-primary yearButton">Flood 6</button>
+                <div>
+                    <button id="flood6" class="btn btn-primary yearButton">Flood 6</button> 
+                </div>
 
-                <button id="flood7" class="btn btn-primary yearButton">Flood 7</button>
+                <div>
+                    <button id="flood7" class="btn btn-primary yearButton">Flood 7</button>    
+                </div>
             </div>
         <!-- end map -->
         </div>

@@ -225,12 +225,13 @@ function updateDikeBreaks()
 	{
 		breakPoints.eachLayer(function(layer)
 		{
-			console.log(currentIndex)
-			console.log(layer.feature.properties.breakpoint);
 			if(layer.feature.properties.breakpoint == Number(currentIndex)+1)
 			{
-				console.log('entered')
 				map.addLayer(layer)
+			}
+			if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
+			{
+				map.removeLayer(layer)
 			}
 		});
 	};

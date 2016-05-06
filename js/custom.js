@@ -68,19 +68,9 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 	size: '256'
 });
 
-function init(){
-	map.addLayer(HERE_hybridDay);
-	map.addLayer(CartoDB);
-	HERE_hybridDay.setOpacity(0.5);
-}
-function restOpacitySlider (){
-	$('#OPslide').attr('min,0')
-};
 
-function updateOpacity(value) {
-    HERE_hybridDay.setOpacity(value);
-}
-window.onload =init;
+
+
 //////////////////////
 ////// Doc Setup /////
 //////////////////////
@@ -97,9 +87,26 @@ $('#document').ready(function()
 {
 	getData();
 	createFloodLevelSlider();
+	init();
 
 
 });
+/////////////////////////////
+/////// Sattelite Slider //////
+/////////////////////////////
+
+function init(){
+	map.addLayer(cartoDB_Map);
+	map.addLayer(HERE_hybridDay);
+	HERE_hybridDay.setOpacity(0);
+}
+function restOpacitySlider (){
+	$('#OPslide').val(0)
+};
+
+function updateOpacity(value) {
+    HERE_hybridDay.setOpacity(value);
+};
 
 //////////////////////
 /////// Buttons //////

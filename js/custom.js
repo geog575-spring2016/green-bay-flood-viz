@@ -44,6 +44,10 @@ var map = L.map("map",
 	})
 	.setView([44.527676, -87.993452], 13);
 
+	map.removeControl(map.zoomControl);
+
+	new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
 
 //streets tileset
 var cartoDB_Map = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',

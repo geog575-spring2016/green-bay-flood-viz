@@ -28,7 +28,8 @@ var currentIndex = 0,
 var currentLayer = 'lakes';
 // var hasBreakPoints = false;
 
-var topleft = L.latLng(44.6362, 	-88.1433),
+//setting zoom and pan bounds 
+var topleft = L.latLng(44.6362, -88.1433),
   	bottomright = L.latLng(44.4637, -87.8268
 ),
   	bounds = L.latLngBounds(topleft, bottomright);
@@ -67,7 +68,19 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 	size: '256'
 });
 
+function init(){
+	map.addLayer(HERE_hybridDay);
+	map.addLayer(CartoDB);
+	HERE_hybridDay.setOpacity(0.5);
+}
+function restOpacitySlider (){
+	$('#OPslide').attr('min,0')
+};
 
+function updateOpacity(value) {
+    HERE_hybridDay.setOpacity(value);
+}
+window.onload =init;
 //////////////////////
 ////// Doc Setup /////
 //////////////////////
@@ -95,7 +108,7 @@ $('#document').ready(function()
 
 //remove all layers from the map when reset is clicked
 $('#reset').on('click', resetFloods);
-
+$('#reset').on('click',restOpacitySlider);
 //readd the number of flood levels based on current index
 function resetFloods()
 {

@@ -14,6 +14,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+
     <!-- Custom CSS -->
     <link href="css/custom.css" rel="stylesheet">
 
@@ -67,76 +68,79 @@
       </div>
     </div>
 
-        <!-- map container -->
-        <div id="map">
-
-            <!-- pannel container -->
-            <div id='panel'>
+    <!-- map container -->
+    <div id="map">
+        <!-- opacity slider pannel -->
+        <span id="opacityPanel" class="panel">
+            <p class="panelText head">Sattelite Opacity</p>
             <input id="OPslide" type="range" min="0" max="1" step="0.1" value="0" onchange="updateOpacity(this.value)">
+        </span>
 
-                <h3 class="panelText industryName"><b></b></h3>
-                <p class="panelText" id="currentYear"><p>
-                <h5 class="panelText">Slide to see water levels</h3>
-                <div id="sliderStuff">
-                    <input id="range" class='range-slider round'  type="range">
+        <div id="sliderPanel" class="panel">
+            <p class="panelText head">Slide to see water levels</p>
 
-                    <button class="btn btn-default btn-primary skip" id="reverse" >
-                        <span class="glyphicon glyphicon-step-backward glyphicon-align-left skipper" aria-hidden="true"></span>
-                    </button>
+            <span id="sliderStuff">
+                <input id="range" class='range-slider round'  type="range">
+            </span>
 
-                    <button class="btn btn-default btn-primary skip" id="forward" >
-                        <span class="glyphicon glyphicon-step-forward glyphicon-align-left" aria-hidden="true"></span>
-                    </button>
-                </div>
+            <span class="skip" id="reverse" >
+                <i class="fa fa-arrow-circle-left fa-lg white"></i>
+            </span>
 
-                <br />
-
-                <h5 class="panelText">Choose an overlay</h5>
-
-                    <br />
-
-
-                <div>
-                    <button id="satellite" class="btn btn-primary btn-cstm">Satellite</button>
-                </div>
-
-                <div>
-                    <button id="breaks" class="btn btn-primary btn-cstm">Dike Breaks</button>
-                </div>
-
-                <div>
-                    <button id="SOVI" class="btn btn-primary btn-cstm">SOVI</button>
-                </div>
-
-                <div>
-                    <button id="BLS" class="btn btn-primary btn-cstm">Employment</button>
-                </div>
-
-                <div>
-                    <button id="affectedPop" class="btn btn-primary btn-cstm">People Affected</button>
-                </div>
-
-                <div>
-                    <button id="propertyLost" class="btn btn-primary btn-cstm">Property Lost</button>
-                </div>
-
-                <div>
-                    <button id="medianIncome" class="btn btn-primary btn-cstm">Median Income</button>
-                </div>
-
-<!--                 <div>
-                    <button id="flood6" class="btn btn-primary btn-cstm">Flood 6</button>
-                </div>
-
-                <div>
-                    <button id="flood7" class="btn btn-primary btn-cstm">Flood 7</button>
-                </div> -->
-                <div>
-                    <button id="reset" class="btn btn-primary btn-cstm">Reset</button>    
-                </div>
-            </div>
-        <!-- end map -->
+            <span class="skip" id="forward" >
+                <i class="fa fa-arrow-circle-right fa-lg white"></i>
+            </span>            
         </div>
+
+        <!-- pannel container -->
+        <div id="buttonPanel" class='panel'>
+            <p class="panelText head">Choose An Overlay</p>
+
+            <div>
+                <button id="breaks" class=" btn btn-cstm">Dike Breaks</button>
+            </div>
+
+            <div>
+                <button id="SOVI" class="btn btn-cstm">SOVI</button>
+            </div>
+
+            <div>
+                <button id="BLS" class="btn btn-cstm">Employment</button>
+            </div>
+
+            <div>
+                <button id="affectedPop" class="btn btn-cstm">People Affected</button>
+            </div>
+
+            <div>
+                <button id="propertyLost" class="btn btn-cstm">Property Lost</button>
+            </div>
+
+            <div>
+                <button id="medianIncome" class="btn btn-cstm">Median Income</button>
+            </div>
+
+            <div>
+                <button id="reset" class="btn btn-cstm">Reset</button>    
+            </div>
+        </div>
+
+        <div id="infoPanel" class='panel'>
+            <p class="panelText head">Info Panel</p>
+
+            <div>
+                <label class="btn-cstm">Total Population Affected</label>
+                <div id="aggPop"></div>    
+            </div>
+
+            <div>
+                <label class="btn-cstm">Max Property Losses</lable>
+                <div id="maxLoss"></div>    
+            </div>
+
+        </div>
+    <!-- end map -->
+    </div>
 
 
 

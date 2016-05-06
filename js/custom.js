@@ -91,8 +91,9 @@ $('#document').ready(function()
 
 
 });
+
 /////////////////////////////
-/////// Sattelite Slider //////
+/////// Sattelite Slider ////
 /////////////////////////////
 
 function init(){

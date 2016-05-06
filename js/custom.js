@@ -145,11 +145,6 @@ function resetFloods()
 };
 
 
-$('#satellite').on('click', function()
-{
-		addSatellite();
-});
-
 $('#breaks').on('click', function()
 {
 		// if(hasBreakPoints)
@@ -397,11 +392,13 @@ function removeExtraLayers()
 {
 	map.eachLayer(function(layer)
 	{
-		if(layer._leaflet_id != 22 && layer._leaflet_id != 14496)
-		{
+		// if(layer._leaflet_id != 22 && layer._leaflet_id != 14496)
+		
 			map.removeLayer(layer);
-		};
+		
 	});
+			cartoDB_Map.addTo(map);
+			HERE_hybridDay.addTo(map);
 };
 
 
@@ -426,9 +423,9 @@ function loadSOVI()
 		//sovi classes
 		switch(soviIndex)
 		{
-			case 'Low': layer.setStyle({fillColor: '#fee6ce', fillOpacity: .5, stroke: false}); break;
-			case 'Medium': layer.setStyle({fillColor: '#fdae6b', fillOpacity: .5, stroke: false}); break;
-			case 'High': layer.setStyle({fillColor: '#e6550d', fillOpacity: .5, stroke: false}); break;
+			case 'Low': layer.setStyle({fillColor: '#fee6ce', fillOpacity: .8, stroke: false}); break;
+			case 'Medium': layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false}); break;
+			case 'High': layer.setStyle({fillColor: '#e6550d', fillOpacity: .8, stroke: false}); break;
 		};
 
 	});
@@ -493,27 +490,27 @@ function loadAffectedPopulation()
 		//affected pop classes
 		if(popIndex < 500)
 		{ 
-			layer.setStyle({fillColor: '#edf8e9', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: '#c7e9c0', fillOpacity: .8, stroke: false}); 
 		}
 		else if(popIndex < 1000)
 		{
-			layer.setStyle({fillColor: '#bae4b3', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: '#a1d99b', fillOpacity: .8, stroke: false}); 
 		}
 		else if(popIndex < 1500)
 		{
-			layer.setStyle({fillColor: '#74c476', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#41ab5d', fillOpacity: .8, stroke: false});
 		}
 		else if(popIndex < 2000)
 		{
-			layer.setStyle({fillColor: '#31a354', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#238b45', fillOpacity: .8, stroke: false});
 		}
 		else if(popIndex < 2500)
 		{
-			layer.setStyle({fillColor: '#006d2c', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#005a32', fillOpacity: .8, stroke: false});
 		}
 		else
 		{
-			layer.setStyle({fillColor: 'black', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: '#00441b', fillOpacity: .5, stroke: false});
 		}
 
 	});
@@ -591,33 +588,33 @@ function loadMedianIncome()
 		//income of 0
 		if(incomeIndex == 0)
 		{
-			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+			layer.setStyle({fillColor: 'fee0d2', fillOpacity: .8, stroke: false});	
 		};
 		
 		//affected pop classes
 		if(incomeIndex < 15000)
 		{ 
-			layer.setStyle({fillColor: '#edf8fb', fillOpacity: .5, stroke: false}); 
+			layer.setStyle({fillColor: '#fc9272', fillOpacity: .8, stroke: false}); 
 		}
 		else if(incomeIndex < 30000)
 		{
-			layer.setStyle({fillColor: '#bfd3e6', fillOpacity: .5, stroke: false}); 
+			layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); 
 		}
 		else if(incomeIndex< 45000)
 		{
-			layer.setStyle({fillColor: '#b3cde3', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: '#ef3b2c', fillOpacity: .8, stroke: false});
 		}
 		else if(incomeIndex < 60000)
 		{
-			layer.setStyle({fillColor: '#8c96c6', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: '#cb181d', fillOpacity: .8, stroke: false});
 		}
 		else if(incomeIndex < 75000)
 		{
-			layer.setStyle({fillColor: '#8856a7', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false});
 		}
 		else
 		{
-			layer.setStyle({fillColor: '#810f7c', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: '#67000d', fillOpacity: .8, stroke: false});
 		}
 
 	});

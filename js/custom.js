@@ -12,7 +12,7 @@ var fileArray = ['data/floods/v1.geojson',
 				 'data/floods/v7.geojson'];
 
 var dikeFileArray= ['data/breakpoints.geojson',
-					'data/dike.geojson'];
+					'data/manualClippedDike.geojson'];
 
 var lakeMIFile = 'data/LakeMichigan.geojson';
 
@@ -29,9 +29,8 @@ var currentLayer = 'lakes';
 // var hasBreakPoints = false;
 
 //setting zoom and pan bounds 
-var topleft = L.latLng(44.6362, -88.1433),
-  	bottomright = L.latLng(44.4637, -87.8268
-),
+var topleft = L.latLng(44.695755, -88.260835),
+  	bottomright = L.latLng(44.378889, -87.710832),
   	bounds = L.latLngBounds(topleft, bottomright);
 
 // initialize the map with geographical coordinates set on madison
@@ -39,14 +38,14 @@ var map = L.map("map",
 	{
 		// maxBounds: new L.LatLngBounds([-20, -200],[70,-10]),
 		minZoom: 12,
-		maxZoom: 16,
+		maxZoom: 18,
 		maxBounds: bounds
 	})
 	.setView([44.527676, -87.993452], 13);
 
-	map.removeControl(map.zoomControl);
+map.removeControl(map.zoomControl);
 
-	new L.Control.Zoom({ position: 'topright' }).addTo(map);
+new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
 
 //streets tileset
@@ -64,7 +63,7 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 	app_id: '4hRsdRmGBf2l2Hn2o1ET',
 	app_code: 'Am10DtpE3d21BS94dezWSg',
 	base: 'aerial',
-	maxZoom: 16,
+	maxZoom: 18,
 	minZoom: 12,
 	type: 'maptile',
 	language: 'eng',
@@ -94,10 +93,6 @@ $('.panel').on('mousedown dblclick', function(e)
 	L.DomEvent.stopPropagation(e);
 });
 
-$('#opacityPanel').on('mousedown dblclick', function(e)
-{
-	L.DomEvent.stopPropagation(e);
-});
 
 
 
@@ -335,7 +330,7 @@ function updateFloodLayers()
 
 	//check whether map has breakpoints
 	//update if they're found
-	if(map.hasLayer(breakPoints))
+	if(map.hasLayer(dike))
 	{
 		
 		updateDikeBreaks();
@@ -361,50 +356,63 @@ function updateFloodLayers()
 ///////Overlays///////
 //////////////////////
 
-function addSatellite(overlay)
-{
-	if(map.hasLayer(cartoDB_Map))
-	{
-		map.removeLayer(cartoDB_Map);
-		HERE_hybridDay.addTo(map);
-	}
-	else
-	{
-		map.removeLayer(HERE_hybridDay);
-		cartoDB_Map.addTo(map);
-	};
+// function addSatellite(overlay)
+// {
+// 	if(map.hasLayer(cartoDB_Map))
+// 	{
+// 		map.removeLayer(cartoDB_Map);
+// 		HERE_hybridDay.addTo(map);
+// 	}
+// 	else
+// 	{
+// 		map.removeLayer(HERE_hybridDay);
+// 		cartoDB_Map.addTo(map);
+// 	};
 
-};
+// };
 
 function updateDikeBreaks()
 {
 
-	if(!map.hasLayer(breakPoints))
+	dike.addTo(map);
+	dike.eachLayer(function(layer)
 	{
-		dike.addTo(map);
-		breakPoints.addTo(map);
-		breakPoints.eachLayer(function(layer)
+		if(layer.feature.properties.Name == Number(currentIndex)+1)
 		{
-			if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
-			{
-				map.removeLayer(layer)
-			}
-		});
-	}
-	else
-	{
-		breakPoints.eachLayer(function(layer)
+			console.log(layer.feature.properties)
+			layer.addTo(map);
+		};
+		if(layer.feature.properties.Name != Number(currentIndex)+1)
 		{
-			if(layer.feature.properties.breakpoint == Number(currentIndex)+1)
-			{
-				map.addLayer(layer)
-			}
-			if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
-			{
-				map.removeLayer(layer)
-			}
-		});
-	};
+			map.removeLayer(layer)
+		};
+	});
+	// if(!map.hasLayer(breakPoints))
+	// {
+	// 	// dike.addTo(map);
+	// 	breakPoints.addTo(map);
+	// 	breakPoints.eachLayer(function(layer)
+	// 	{
+	// 		if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
+	// 		{
+	// 			map.removeLayer(layer)
+	// 		}
+	// 	});
+	// }
+	// else
+	// {
+	// 	breakPoints.eachLayer(function(layer)
+	// 	{
+	// 		if(layer.feature.properties.breakpoint == Number(currentIndex)+1)
+	// 		{
+	// 			map.addLayer(layer)
+	// 		}
+	// 		if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
+	// 		{
+	// 			map.removeLayer(layer)
+	// 		}
+	// 	});
+	// };
 };
 
 
@@ -718,12 +726,11 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {color: '#755144'};
+					return {color: 'red'};
 				}
 			});
 		}
 	});
-
 
 	//flood level 8 /////////weird error
 	// $.ajax(fileArray[6],

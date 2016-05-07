@@ -23,8 +23,10 @@
     <!-- leaflet core and css -->
     <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
     <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css">
+
     <!-- Custom CSS -->
     <link href="css/custom.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -35,13 +37,11 @@
             <div class="navbar-header text-center">
                 <a id="pageHeader" class="navbar-brand" href="#">Green Bay Flood Viewer</a>
             </div>
-
             <ul id="nav" class="nav navbar-nav navbar-right">
                 <li>
                     <a href id="aboutButton" data-toggle="modal" data-target="#about">About</a>
                 </li>
             </ul>
-         
         </div>
     </nav>
 
@@ -69,10 +69,10 @@
     <!-- map container -->
     <div id="map">
         <!-- opacity slider pannel -->
-        <span id="opacityPanel" class="panel">
-            <p class="panelText head">Sattelite Opacity</p>
-            <input id="OPslide" type="range" min="0" max="1" step="0.1" value="0" onchange="updateOpacity(this.value)">
-        </span>
+        <div id="opacityPanel" class="panel">
+            <p class="panelText head">Sattalite Opacity</p>
+            <input id="OPslide" type="range">
+        </div>
 
         <div id="sliderPanel" class="panel">
             <p class="panelText head">Slide to see water levels</p>

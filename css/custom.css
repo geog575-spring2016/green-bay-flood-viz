@@ -58,7 +58,7 @@
 
 #infoPanel
 {
-    height: 300px; 
+    height: 280px; 
     clear: right;
     text-align: left;   
 }
@@ -69,7 +69,6 @@
     width: 50%;
     display: inline-block;
     text-align: center;
-/*    -webkit-transform: rotate(-90deg);*/
 }
 
 #sliderStuff
@@ -97,10 +96,88 @@
     padding-bottom: 0;
 }
 
+.panelText
+{
+    color: #2E8599;
+    text-align: center;
+}
+
+.panel 
+{
+    position: relative;
+    margin-right: .4%;
+    width: 200px;
+    opacity: .85;
+    background-color: #222222;
+    border: solid 2px #2E8599;
+    border-radius: 5px;
+    float: right;
+    z-index: 1;
+    padding: .25%;
+    margin-bottom: .5%;
+}
+
+.btn-cstm
+{
+    width: 100%;
+    margin-top: .5%;
+    background-color: #222222;
+    color:  #2E8599;
+    text-align: left;
+}
+
+.btn-cstm:hover
+{
+    background-color: #3F3F3F;
+    border: solid 1px #373739;
+    color: #16B4D8;
+}
+
+.btn-cstm:active
+{
+    background-color: #3F3F3F;
+    border: solid 1px #373739;
+    color: #16B4D8;
+}
+
+.info-label
+{
+    width: 100%;
+    margin-top: .5%;
+    background-color: #222222;
+    color:  #2E8599;
+    text-align: left;
+}
+
+.lineBreak
+{
+    border-top: 1px solid #373739;
+    margin-bottom: 5px;
+}
+
+.skip
+{
+    background-color: black;
+    border-color: black;
+}
+
+.panelText.head
+{
+    text-align: center;
+    font-size: 130%;
+    background-color: #191919;
+    border: solid 1px #373739;
+    color: #2E8599;
+    border-radius: 3.5px;
+    margin-bottom: .5%;
+    box-shadow: 5px;
+}
+
 .leaflet-control-zoom-in
 {
     margin-top: -1.5%;
-    margin-right: 200px;
+    position: relative;
+    right: 200px;
     border-right:solid 2px #2E8599 ;
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599; 
@@ -111,7 +188,8 @@
 
 .leaflet-control-zoom-out
 {
-    margin-right: 200px;
+    position: relative;
+    right: 200px;
     border-right:solid 2px #2E8599 ;
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599;
@@ -128,8 +206,8 @@
 .leaflet-bar a:last-child
 {
     border-bottom: solid 2px #2E8599;
-    border-bottom:  
 }
+
 .leaflet-bar a, .leaflet-bar a:hover
 {
     background-color: #222222;
@@ -173,78 +251,6 @@
 {
     opacity: 1%;
 }
-
-.panelText
-{
-    color: #2E8599;
-    text-align: center;
-}
-
-.panel 
-{
-    position: relative;
-    margin-right: .4%;
-    width: 200px;
-    opacity: .85;
-/*    background-color: #454548;*/
-    background-color: #222222;
-    border: solid 2px #2E8599;
-    border-radius: 5px;
-    float: right;
-    z-index: 1;
-    padding: .25%;
-    margin-bottom: .5%;
-}
-
-.btn-cstm
-{
-    width: 100%;
-    margin-top: .5%;
-    background-color: #222222;
-    color:  #2E8599;
-    text-align: left;
-}
-
-.btn-cstm:hover
-{
-    background-color: #3F3F3F;
-    border: solid 1px #373739;
-    color: #16B4D8;
-}
-
-.info-label
-{
-    width: 100%;
-    margin-top: .5%;
-    background-color: #222222;
-    color:  #2E8599;
-    text-align: left;
-}
-
-.lineBreak
-{
-    color: #373739;
-}
-
-.skip
-{
-    background-color: black;
-    border-color: black;
-}
-
-.panelText.head
-{
-    text-align: center;
-    font-size: 130%;
-    background-color: #191919;
-    border: solid 1px #373739;
-    color: #2E8599;
-    border-radius: 3.5px;
-    margin-bottom: .5%;
-    box-shadow: 5px;
-}
-
-
 
 
 

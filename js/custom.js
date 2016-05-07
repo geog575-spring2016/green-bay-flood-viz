@@ -54,7 +54,7 @@ var cartoDB_Map = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x
 	{
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 		subdomains: 'abcd',
-	})
+	}).addTo(map);
 
 //satellite tileset
 var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/hybrid.day/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}', {
@@ -70,7 +70,7 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 	language: 'eng',
 	format: 'png8',
 	size: '256'
-});
+}).setOpacity(0).addTo(map);
 
 
 
@@ -79,39 +79,27 @@ var HERE_hybridDay = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptil
 ////// Doc Setup /////
 //////////////////////
 
-
-//disable drag when on info panel
-$('#panel').on('mousedown dblclick', function(e)
-{
-	L.DomEvent.stopPropagation(e);
-});
-
 // load first flood data when page loads
 $('#document').ready(function()
 {
 	getData();
 	createFloodLevelSlider();
-	init();
-
-
+	createOpacitySlider();
 });
 
-/////////////////////////////
-/////// Sattelite Slider ////
-/////////////////////////////
 
-function init(){
-	map.addLayer(cartoDB_Map);
-	map.addLayer(HERE_hybridDay);
-	HERE_hybridDay.setOpacity(0);
-}
-function restOpacitySlider (){
-	$('#OPslide').val(0)
-};
+//disable drag when on info panel
+$('.panel').on('mousedown dblclick', function(e)
+{
+	L.DomEvent.stopPropagation(e);
+});
 
-function updateOpacity(value) {
-    HERE_hybridDay.setOpacity(value);
-};
+$('#opacityPanel').on('mousedown dblclick', function(e)
+{
+	L.DomEvent.stopPropagation(e);
+});
+
+
 
 //////////////////////
 /////// Buttons //////
@@ -120,7 +108,9 @@ function updateOpacity(value) {
 
 //remove all layers from the map when reset is clicked
 $('#reset').on('click', resetFloods);
-$('#reset').on('click',restOpacitySlider);
+$('#reset').on('click',resetOpacitySlider);
+
+
 //readd the number of flood levels based on current index
 function resetFloods()
 {
@@ -216,7 +206,7 @@ $('#medianIncome').click(function()
 function createFloodLevelSlider()
 {
 	// set slider attributes
-	$('.range-slider').attr(
+	$('#range').attr(
 	{
 		max: 6,
 		min: 0,
@@ -229,7 +219,7 @@ function createFloodLevelSlider()
 	{
 
 	// get the old index value
-	var index = $('.range-slider').val();
+	var index = $('#range').val();
 	prevIndex = index;
 
 	// increment or decrement depending on button clicked
@@ -250,7 +240,7 @@ function createFloodLevelSlider()
 	};
 
 	// update slider
-	$('.range-slider').val(index);
+	$('#range').val(index);
 	currentIndex = index;
 
 
@@ -259,7 +249,7 @@ function createFloodLevelSlider()
 
 	});
 
-	$('.range-slider').on('input', function()
+	$('#range').on('input', function()
 	{
 		prevIndex = currentIndex;
 		currentIndex = $(this).val();
@@ -270,6 +260,33 @@ function createFloodLevelSlider()
 	});
 };
 
+/////////////////////////////
+/////// Satellite Slider ////
+/////////////////////////////
+
+function resetOpacitySlider ()
+{
+	$('#OPslide').val(0)
+};
+
+
+function createOpacitySlider()
+{
+	$('#OPslide').attr(
+	{
+		max: 1,
+		min: 0,
+		value: 0,
+		step: .1
+	});
+
+	$('#OPslide').on('input', function()
+	{
+	console.log('taco')
+	var value = $('#OPslide').val();
+	HERE_hybridDay.setOpacity(value);
+	});
+};
 
 
 

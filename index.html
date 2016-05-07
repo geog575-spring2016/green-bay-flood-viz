@@ -50,17 +50,17 @@
     <div id="about" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header modalHeadFoot">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+            <h4 class="modal-title">About The Flood Viewer</h4>
             </div>
-            <div class="modal-body">
+            <div id="modalBody" class="modal-body">
                 <p><!--about text-->
                     This tool provides data and maps depicting potential flooding impacts in the City of Green Bay. Water levels were calculated based on wave heights and historic storm surges seen in the area. The viewer visualises potential breaks in the Green Bay city dyke based on a set of flood levels that is adjusted using the water level slider.<br>Use the water level slider to increase and decrease the water level from the lake long term average up to historic highs. These highs include the potential damage by water based on wind events.<br>Overlays of potential property value damage give the user an indication of the potential costs to buildings different levels of flooding may have.<br>Applying the Business vulnerability index layer gives the user an estimate of potential losses to business at each lake level based on flood conditions. This data is aggregated to census block groups and was derived from Bureau of Labor Statistics.
                 </p>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="modal-footer modalHeadFoot">
+            <button id="modalButton" type="button" class="btn" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@
     <div id="map">
         <!-- opacity slider pannel -->
         <div id="opacityPanel" class="panel">
-            <p class="panelText head">Sattalite Opacity</p>
+            <p class="panelText head">Satelite Opacity</p>
             <input id="OPslide" type="range">
         </div>
 
@@ -95,7 +95,7 @@
             <p class="panelText head">Choose An Overlay</p>
 
             <div>
-                <button id="breaks" class=" btn btn-cstm">Dike Breaks</button>
+                <button id="breaks" class="btn btn-cstm">Dike Breaks</button>
             </div>
 
             <div>

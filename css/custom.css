@@ -28,6 +28,19 @@
     color:  #2E8599;
 }
 
+#modalButton
+{
+    margin-top: .5%;
+    background-color: #222222;
+    color:  #2E8599;
+    text-align: left;
+}
+
+#modalBody
+{
+    background-color: #BEBFBE;
+}
+
 #aboutButton:hover
 {
     color: #16B4D8;
@@ -133,10 +146,10 @@
     color: #16B4D8;
 }
 
-.btn-cstm:active
+.btn.focus, .btn:focus, .btn:hover 
 {
     background-color: #3F3F3F;
-    border: solid 1px #373739;
+    border: solid 1px #16B4D8;
     color: #16B4D8;
 }
 
@@ -173,11 +186,50 @@
     box-shadow: 5px;
 }
 
+.modalHeadFoot
+{
+    background-color: #222222;
+    border: #222222;
+    color:  #2E8599;   
+    opacity: 85%; 
+}
+
+button.close
+{
+    background-color: #222222;
+    color:  #2E8599;
+}
+button.close:hover
+{
+    color:  #249EB2;
+}
+.close 
+{
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 0px 0 #222222;
+    filter: alpha(opacity=20);
+    opacity: .99;
+}
+
+.close:focus, .close:hover 
+{
+    background-color: #222222;
+    color:  #2E8599;  
+}
+
+.leaflet-control-zoom
+{
+    position: relative;
+    right: 200px;
+}
+
 .leaflet-control-zoom-in
 {
     margin-top: -1.5%;
-    position: relative;
-    right: 200px;
     border-right:solid 2px #2E8599 ;
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599; 
@@ -188,8 +240,6 @@
 
 .leaflet-control-zoom-out
 {
-    position: relative;
-    right: 200px;
     border-right:solid 2px #2E8599 ;
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599;

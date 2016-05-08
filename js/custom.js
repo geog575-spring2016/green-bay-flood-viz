@@ -105,6 +105,7 @@ $('#reset').on('click', function()
 {
 	resetFloods();
 	resetOpacitySlider()
+	turnOnFloods();
 });
 
 
@@ -112,15 +113,18 @@ $('#reset').on('click', function()
 function resetFloods()
 {
 	currentLayer = 'lakes';
+	currentIndex = 0;
+	prevIndex = 0;
 
 	removeExtraLayers();
 
 	//add the first layer style
-	floodDataArray[0].addTo(map);
-	floodDataArray[0].eachLayer(function(layer)
-	{
-		layer.setStyle({opacity: .5});
-	});
+	// floodDataArray[0].addTo(map);
+	// floodDataArray[0].eachLayer(function(layer)
+	// {
+	// 	console.log('adsfjk')
+	// 	layer.setStyle({color: 'blue', opacity: .5});
+	// });
 
 	$('#range').val(0);
 
@@ -267,7 +271,6 @@ function createOpacitySlider()
 	{
 		var value = $('#OPslide').val();
 		HERE_hybridDay.setOpacity(value);
-		console.log(value);
 		if(map.hasLayer(dike))
 		{
 			dike.eachLayer(function(layer)
@@ -352,14 +355,19 @@ function turnOnFloods()
 		layer.setStyle({fillColor: '#128AB3', stroke: false, fillOpacity: .5});
 	});
 
-	for(var i = 0; i <= Number(currentIndex); i++)
+	//restylize each layer in floods
+	for(var i = 1; i < floodDataArray.length; i++)
 	{
-		floodDataArray[i].addTo(map);
-
 		floodDataArray[i].eachLayer(function(layer)
 		{
 			layer.setStyle({fillColor: '#128AB3', stroke: false, fillOpacity: .2});
 		});
+	};
+
+	//add floods up to current index
+	for(var i = 1; i <= Number(currentIndex); i++)
+	{
+		floodDataArray[i].addTo(map);
 	};
 
 };
@@ -377,11 +385,8 @@ function updateDikeBreaks()
 	if(!map.hasLayer(baseDike))
 	{
 		baseDike.addTo(map);
-		// baseDike.eachLayer(function(layer)
-		// {
-		// 	layer.setStyle({color: 'red', weight: 1});
-		// });
 	};
+
 	dike.addTo(map);
 	dike.eachLayer(function(layer)
 	{
@@ -453,7 +458,7 @@ function loadSOVI()
 		//no data
 		if(!soviIndex)
 		{
-			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+			layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false});	
 		}
 		
 		//sovi classes
@@ -483,7 +488,7 @@ function loadBLS()
 		//nodata
 		if(!blsIndex)
 		{
-			layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+			layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false});	
 		}
 		
 		//bls classes
@@ -493,7 +498,7 @@ function loadBLS()
 			case '100-499': layer.setStyle({fillColor: '#cbc9e2', fillOpacity: .7, stroke: false}); break;
 			case '500-999': layer.setStyle({fillColor: '#9e9ac8', fillOpacity: .7, stroke: false}); break;
 			case '1,000 or Greater': layer.setStyle({fillColor: '#6a51a3', fillOpacity: .7, stroke: false}); break;
-			case 'Suppressed': layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false}); break;
+			case 'Suppressed': layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false}); break;
 		};
 
 	});
@@ -567,32 +572,37 @@ function loadPropertyLoss()
 	{
 		
 		var propIndex = layer.feature.properties.MAX_PROPER;
+		console.log(layer.feature.properties.MAX_PROPER)
 		
 		//affected pop classes
-		if(propIndex < 2000000)
-		{ 
-			layer.setStyle({fillColor: '#feedde', fillOpacity: .8, stroke: false}); 
-		}
-		else if(propIndex < 4000000)
+		if(propIndex == 0)
 		{
+			layer.setStyle({fillColor: '#ddd', fillOpacity: .8, stroke: false});	
+		}
+		else if(propIndex < 1600000)
+		{ 
 			layer.setStyle({fillColor: '#fdd0a2', fillOpacity: .8, stroke: false}); 
 		}
-		else if(propIndex < 6000000)
+		else if(propIndex < 11000000)
 		{
-			layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false}); 
 		}
-		else if(propIndex < 8000000)
+		else if(propIndex < 23000000)
 		{
 			layer.setStyle({fillColor: '#fd8d3c', fillOpacity: .8, stroke: false});
 		}
-		else if(propIndex < 10000000)
+		else if(propIndex < 82000000)
 		{
 			layer.setStyle({fillColor: '#e6550d', fillOpacity: .8, stroke: false});
 		}
-		else
+		else if(propIndex < 152000000)
 		{
 			layer.setStyle({fillColor: '#a63603', fillOpacity: .8, stroke: false});
-		}
+		};
+		// else
+		// {
+		// 	layer.setStyle({fillColor: '#a63603', fillOpacity: .8, stroke: false});
+		// }
 
 	});
 };
@@ -616,34 +626,32 @@ function loadMedianIncome()
 		//income of 0
 		if(incomeIndex == 0)
 		{
-			layer.setStyle({fillColor: 'fee0d2', fillOpacity: .8, stroke: false});	
-		};
-		
-		//affected pop classes
-		if(incomeIndex < 15000)
+			layer.setStyle({fillColor: '#ddd', fillOpacity: .8, stroke: false});	
+		}
+		else if(incomeIndex < 34000)
 		{ 
 			layer.setStyle({fillColor: '#fc9272', fillOpacity: .8, stroke: false}); 
 		}
-		else if(incomeIndex < 30000)
+		else if(incomeIndex < 42000)
 		{
 			layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); 
 		}
-		else if(incomeIndex< 45000)
+		else if(incomeIndex< 55000)
 		{
 			layer.setStyle({fillColor: '#ef3b2c', fillOpacity: .8, stroke: false});
 		}
-		else if(incomeIndex < 60000)
+		else if(incomeIndex < 73000)
 		{
 			layer.setStyle({fillColor: '#cb181d', fillOpacity: .8, stroke: false});
 		}
-		else if(incomeIndex < 75000)
+		else if(incomeIndex < 99000)
 		{
 			layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false});
 		}
-		else
-		{
-			layer.setStyle({fillColor: '#67000d', fillOpacity: .8, stroke: false});
-		}
+		// else
+		// {
+		// 	layer.setStyle({fillColor: '#67000d', fillOpacity: .8, stroke: false});
+		// }
 
 	});
 };

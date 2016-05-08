@@ -458,15 +458,15 @@ function loadSOVI()
 		//no data
 		if(!soviIndex)
 		{
-			layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false});	
+			layer.setStyle({fillColor: '#fcae91', fillOpacity: .7, stroke: false});	
 		}
 		
 		//sovi classes
 		switch(soviIndex)
 		{
-			case 'Low': layer.setStyle({fillColor: '#fee6ce', fillOpacity: .8, stroke: false}); break;
-			case 'Medium': layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false}); break;
-			case 'High': layer.setStyle({fillColor: '#e6550d', fillOpacity: .8, stroke: false}); break;
+			case 'Low': layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); break;
+			case 'Medium': layer.setStyle({fillColor: '#de2d26', fillOpacity: .8, stroke: false}); break;
+			case 'High': layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false}); break;
 		};
 
 	});
@@ -494,10 +494,10 @@ function loadBLS()
 		//bls classes
 		switch(blsIndex)
 		{
-			case '<100': layer.setStyle({fillColor: '#f2f0f7', fillOpacity: .7, stroke: false}); break;
-			case '100-499': layer.setStyle({fillColor: '#cbc9e2', fillOpacity: .7, stroke: false}); break;
-			case '500-999': layer.setStyle({fillColor: '#9e9ac8', fillOpacity: .7, stroke: false}); break;
-			case '1,000 or Greater': layer.setStyle({fillColor: '#6a51a3', fillOpacity: .7, stroke: false}); break;
+			case '<100': layer.setStyle({fillColor: '#c994c7', fillOpacity: .7, stroke: false}); break;
+			case '100-499': layer.setStyle({fillColor: '#df65b0', fillOpacity: .7, stroke: false}); break;
+			case '500-999': layer.setStyle({fillColor: '#e7298a', fillOpacity: .7, stroke: false}); break;
+			case '1,000 or Greater': layer.setStyle({fillColor: '#980043', fillOpacity: .7, stroke: false}); break;
 			case 'Suppressed': layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false}); break;
 		};
 
@@ -630,23 +630,23 @@ function loadMedianIncome()
 		}
 		else if(incomeIndex < 34000)
 		{ 
-			layer.setStyle({fillColor: '#fc9272', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false}); 
 		}
 		else if(incomeIndex < 42000)
 		{
-			layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: '#fd8d3c', fillOpacity: .8, stroke: false}); 
 		}
 		else if(incomeIndex< 55000)
 		{
-			layer.setStyle({fillColor: '#ef3b2c', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#f16913', fillOpacity: .8, stroke: false});
 		}
 		else if(incomeIndex < 73000)
 		{
-			layer.setStyle({fillColor: '#cb181d', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#d94801', fillOpacity: .8, stroke: false});
 		}
 		else if(incomeIndex < 99000)
 		{
-			layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#a63603', fillOpacity: .8, stroke: false});
 		}
 		// else
 		// {

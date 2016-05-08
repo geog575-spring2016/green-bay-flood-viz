@@ -12,13 +12,12 @@ var fileArray = ['data/floods/v1.geojson',
 				 'data/floods/v7.geojson'];
 
 var dikeFileArray= ['data/breakpoints.geojson',
-					'data/manualClippedDike.geojson'];
-
-var lakeMIFile = 'data/LakeMichigan.geojson';
+					'data/manuallyClippedDike.geojson'];
 
 //map layer variables
 var floodDataArray = [];
 var dike;
+var baseDike;
 var breakPoints;
 
 //variables to control map interactions
@@ -101,9 +100,12 @@ $('.panel').on('mousedown dblclick', function(e)
 //////////////////////
 
 
-//remove all layers from the map when reset is clicked
-$('#reset').on('click', resetFloods);
-$('#reset').on('click',resetOpacitySlider);
+//reset to map load state
+$('#reset').on('click', function() 
+{
+	resetFloods();
+	resetOpacitySlider()
+});
 
 
 //readd the number of flood levels based on current index
@@ -117,38 +119,23 @@ function resetFloods()
 	floodDataArray[0].addTo(map);
 	floodDataArray[0].eachLayer(function(layer)
 	{
-		layer.setStyle({fillColor: '#128AB3', stroke: false, fillOpacity: .5});
+		layer.setStyle({opacity: .5});
 	});
 
-	//add the style for the additional flood levels
-	for(var i = 1; i <= Number(currentIndex); i++)
-	{
-		floodDataArray[i].addTo(map);
-		floodDataArray[i].eachLayer(function(layer)
-		{
-			layer.setStyle({fillColor: '#128AB3', stroke: false, fillOpacity: .2});
-		});
-
-	};
+	$('#range').val(0);
 
 };
 
 
 $('#breaks').on('click', function()
 {
-		// if(hasBreakPoints)
-		// {
-		// 	console.log('to')
-		// 	breakPoints.eachLayer(function(layer) 
-		// 	{
-		// 		map.removeLayer(layer);
-		// 		hasBreakPoints = false;
-		// 	});
-			
-		// }
-
-		// hasBreakPoints = true;
-		updateDikeBreaks();
+	turnOnFloods();
+	updateDikeBreaks();
+	map.on('zoomend ', function(e) 
+	{
+         if ( map.getZoom() > 15 ){ dike.setStyle({weight: 4})}
+         else if ( map.getZoom() <= 15 ){ dike.setStyle({weight: 2})}
+    });
 });
 
 //load sovi when clicked
@@ -261,6 +248,7 @@ function createFloodLevelSlider()
 
 function resetOpacitySlider ()
 {
+	HERE_hybridDay.setOpacity(0);
 	$('#OPslide').val(0)
 };
 
@@ -277,12 +265,25 @@ function createOpacitySlider()
 
 	$('#OPslide').on('input', function()
 	{
-	console.log('taco')
-	var value = $('#OPslide').val();
-	HERE_hybridDay.setOpacity(value);
+		var value = $('#OPslide').val();
+		HERE_hybridDay.setOpacity(value);
+		console.log(value);
+		if(map.hasLayer(dike))
+		{
+			dike.eachLayer(function(layer)
+			{
+				if(value > .7)
+				{
+					layer.setStyle({color: '#eee'});
+				}
+				else
+				{
+					layer.setStyle({color: '#333'});
+				}
+			});
+		}
 	});
 };
-
 
 
 
@@ -291,18 +292,10 @@ function createOpacitySlider()
 //////////////////////
 
 
-//WTF IS GOING ON WITH THIS????
-//all layers load in the right order, except levels 6 & 7 are switched
-//geojsons are named correctly 
-//I think its an issue with pushing to the floodlevel array in the callback, 
-//but I can't figure it out HELPPPPPPPPPPP
 function updateFloodLayers()
 {
 
 	var change = currentIndex - prevIndex;
-	// console.log('curr' + currentIndex);
-	// console.log('prev' + prevIndex)
-	// console.log('change' + change)
 
 	//slider has moved forward
 	//add number of layers that the slider has moved
@@ -310,7 +303,6 @@ function updateFloodLayers()
 	{
 		for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
 		{
-			// console.log('adding' + fileArray[i])
 			floodDataArray[i].addTo(map);
 
 		};
@@ -323,7 +315,6 @@ function updateFloodLayers()
 	{
 		for(var i = Number(currentIndex) + 1; i <= Number(prevIndex); i++)
 		{
-			// console.log('removing' + fileArray[i])
 			map.removeLayer(floodDataArray[i]);
 		};
 	};
@@ -332,7 +323,6 @@ function updateFloodLayers()
 	//update if they're found
 	if(map.hasLayer(dike))
 	{
-		
 		updateDikeBreaks();
 	};
 
@@ -350,36 +340,53 @@ function updateFloodLayers()
 
 };
 
+function turnOnFloods() 
+{
+	currentLayer = 'lakes';
+
+	map.removeLayer(floodDataArray[currentIndex]);
+
+	floodDataArray[0].addTo(map);
+	floodDataArray[0].eachLayer(function(layer)
+	{
+		layer.setStyle({fillColor: '#128AB3', stroke: false, fillOpacity: .5});
+	});
+
+	for(var i = 0; i <= Number(currentIndex); i++)
+	{
+		floodDataArray[i].addTo(map);
+
+		floodDataArray[i].eachLayer(function(layer)
+		{
+			layer.setStyle({fillColor: '#128AB3', stroke: false, fillOpacity: .2});
+		});
+	};
+
+};
+
 
 
 //////////////////////
 ///////Overlays///////
 //////////////////////
 
-// function addSatellite(overlay)
-// {
-// 	if(map.hasLayer(cartoDB_Map))
-// 	{
-// 		map.removeLayer(cartoDB_Map);
-// 		HERE_hybridDay.addTo(map);
-// 	}
-// 	else
-// 	{
-// 		map.removeLayer(HERE_hybridDay);
-// 		cartoDB_Map.addTo(map);
-// 	};
-
-// };
 
 function updateDikeBreaks()
 {
 
+	if(!map.hasLayer(baseDike))
+	{
+		baseDike.addTo(map);
+		// baseDike.eachLayer(function(layer)
+		// {
+		// 	layer.setStyle({color: 'red', weight: 1});
+		// });
+	};
 	dike.addTo(map);
 	dike.eachLayer(function(layer)
 	{
 		if(layer.feature.properties.Name == Number(currentIndex)+1)
 		{
-			console.log(layer.feature.properties)
 			layer.addTo(map);
 		};
 		if(layer.feature.properties.Name != Number(currentIndex)+1)
@@ -558,15 +565,8 @@ function loadPropertyLoss()
 	//stylize each layer
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
-		console.log(layer.feature.properties.MEDIAN_INC)
 		
 		var propIndex = layer.feature.properties.MAX_PROPER;
-
-		//nodata
-		// if(!propIndex)
-		// {
-		// 	layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
-		// }
 		
 		//affected pop classes
 		if(propIndex < 2000000)
@@ -610,7 +610,6 @@ function loadMedianIncome()
 	//stylize each layer
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
-		// console.log(layer.feature.properties.MEDIAN_INC)
 		
 		var incomeIndex = layer.feature.properties.MEDIAN_INC;
 
@@ -666,38 +665,156 @@ function getData()
 		dataType: 'json',
 		success: function(response)
 		{
-			l1 = L.geoJson(response,
+			floodDataArray[0] = L.geoJson(response,
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .5};
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .5, clickable: false};
 				}
 			}).addTo(map);
 		}
-	}).then(function() {
-		floodDataArray.push(l1);
+	});
+
+	//dike
+    $.ajax(dikeFileArray[1],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			dike = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {color: '#333', weight: 2, opacity: 1, clickable: false};
+				}
+			});
+			baseDike = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {color: 'red', weight: 1, opacity: 1, clickable: false};
+				}
+			});
+		}
+	});
+
+	//flood level 2
+	$.ajax(fileArray[1],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			floodDataArray[1] = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+				}
+			});
+		}
+	});
+
+
+	//flood level 3
+	$.ajax(fileArray[2],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			floodDataArray[2] = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+				}
+			});
+		}
+	});
+
+	//flood level 4
+	$.ajax(fileArray[3],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			floodDataArray[3] = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+				}
+			});
+		}
+	});
+
+	//flood level 5
+	$.ajax(fileArray[4],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			floodDataArray[4] = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+				}
+			});
+		}
+	});
+
+	//flood level 6
+	$.ajax(fileArray[5],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			floodDataArray[5] = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+				}
+			});
+		}
+	});
+
+	//flood level 7
+	$.ajax(fileArray[6],
+	{
+		dataType: 'json',
+		success: function(response)
+		{
+			floodDataArray[6] = L.geoJson(response,
+			{
+				style: function (feature)
+				{
+					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+				}
+			});
+		}
 	});
 
 	//flood levels 2-7
-	for(var i = 1; i < fileArray.length; i++)
-	{
-		$.ajax(fileArray[i],
-		{
-			dataType: 'json',
-			success: function(response)
-			{
-				layer = L.geoJson(response,
-				{
-					style: function(feature)
-					{
-						return {fillColor: '#128AB3', stroke: false, fillOpacity: .2};
-					}
-				});		
-			}
-		}).then(function() {
-			floodDataArray.push(layer);
-		});;
-	};
+	// for(var i = 1; i < fileArray.length; i++)
+	// {
+	// 	$.ajax(fileArray[i],
+	// 	{
+	// 		dataType: 'json',
+	// 		success: function(response)
+	// 		{
+	// 			layer = L.geoJson(response,
+	// 			{
+	// 				style: function(feature)
+	// 				{
+	// 					return {fillColor: '#128AB3', stroke: false, fillOpacity: .2, clickable: false};
+	// 				}
+	// 			});		
+	// 		}
+	// 	}).then(function() {
+	// 		floodDataArray.splice(i,) = layer;
+	// 	});;
+	// };
 
 
 	//breakpoints
@@ -715,39 +832,4 @@ function getData()
 			});
 		}
 	});
-
-	//dike
-    $.ajax(dikeFileArray[1],
-	{
-		dataType: 'json',
-		success: function(response)
-		{
-			dike = L.geoJson(response,
-			{
-				style: function (feature)
-				{
-					return {color: 'red'};
-				}
-			});
-		}
-	});
-
-	//flood level 8 /////////weird error
-	// $.ajax(fileArray[6],
-	// {
-	// 	dataType: 'json',
-	// 	success: function(response)
-	// 	{
-	// 		l1 = L.geoJson(response,
-	// 		{
-	// 			style: function (feature)
-	// 			{
-	// 				return {fillColor: '#128AB3', stroke: false, fillOpacity: .2};
-	// 			}
-	// 		});
-	// 	}
-	// }).then(function() {
-	// 	floodDataArray.push(layer);
-	// });
-
 };

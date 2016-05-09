@@ -458,7 +458,7 @@ function loadSOVI()
 		//no data
 		if(!soviIndex)
 		{
-			layer.setStyle({fillColor: '#fcae91', fillOpacity: .7, stroke: false});	
+			layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false});	
 		}
 		
 		//sovi classes
@@ -525,33 +525,33 @@ function loadAffectedPopulation()
 		//nodata
 		// if(!popIndex)
 		// {
-		// 	layer.setStyle({fillColor: 'gray', fillOpacity: .5, stroke: false});	
+		// 	layer.setStyle({fillColor: '#ddd', fillOpacity: .5, stroke: false});	
 		// }
 		
 		//affected pop classes
 		if(popIndex < 500)
 		{ 
-			layer.setStyle({fillColor: '#c7e9c0', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: '#fc9272', fillOpacity: .8, stroke: false}); 
 		}
 		else if(popIndex < 1000)
 		{
-			layer.setStyle({fillColor: '#a1d99b', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); 
 		}
 		else if(popIndex < 1500)
 		{
-			layer.setStyle({fillColor: '#41ab5d', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#ef3b2c', fillOpacity: .8, stroke: false});
 		}
 		else if(popIndex < 2000)
 		{
-			layer.setStyle({fillColor: '#238b45', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#cb181d', fillOpacity: .8, stroke: false});
 		}
 		else if(popIndex < 2500)
 		{
-			layer.setStyle({fillColor: '#005a32', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false});
 		}
 		else
 		{
-			layer.setStyle({fillColor: '#00441b', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: '#67000d', fillOpacity: .5, stroke: false});
 		}
 
 	});

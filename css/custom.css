@@ -34,12 +34,17 @@
 
 #modalBody
 {
-    background-color: #BEBFBE;
+    background-color: #e0e1e0;
 }
 
 #aboutButton:hover
 {
     color: #16B4D8;
+}
+
+.modal-content
+{
+  border: solid 3px #3F3F3F; 
 }
 
 #opacityPanel
@@ -113,20 +118,43 @@
     text-align: center;
 }
 
-.panel 
+#stopPropPanel
 {
     position: relative;
-    margin-right: .4%;
+    width: 206px;
+    float: right;
+    z-index: 1;
+}
+
+.panel 
+{
     width: 200px;
     opacity: .85;
     background-color: #222222;
     border: solid 2px #2E8599;
     border-radius: 5px;
-    float: right;
-    z-index: 1;
     padding: .25%;
-    margin-bottom: .5%;
+    margin-bottom: 4%;
 }
+
+#legendPanel
+{
+  z-index: 1;
+  position: relative;
+  float: right;
+  margin-top: 400px;
+  margin-right: .4%;
+  background-color: #aaa;
+  color: #000;
+  border: solid 2px #3aa7c0;;
+}
+
+#legendHeader
+{
+  background-color: #3F3F3F;
+  color: #3aa7c0;
+}
+
 
 .btn-cstm
 {
@@ -189,7 +217,8 @@
 {
     background-color: #222222;
     border: #222222;
-    color:  #2E8599;   
+    color:  #2E8599;  
+    border-radius: 2px; 
     opacity: 85%; 
 }
 

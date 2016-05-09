@@ -68,103 +68,105 @@
 
     <!-- map container -->
     <div id="map">
-        <!-- opacity slider pannel -->
-        <div id="opacityPanel" class="panel">
-            <p class="panelText head">Satelite Opacity</p>
-            <input id="OPslide" type="range">
+        <div id='stopPropPanel'>
+            <!-- opacity slider pannel -->
+            <div id="opacityPanel" class="panel">
+                <p class="panelText head">Satelite Opacity</p>
+                <input id="OPslide" type="range">
+            </div>
+
+            <div id="sliderPanel" class="panel">
+                <p class="panelText head">Slide to see water levels</p>
+
+
+                <span class="skip" id="forward" >
+                    <i class="fa fa-arrow-circle-right fa-lg white"></i>
+                </span>    
+
+                <span id="sliderStuff">
+                    <input id="range" class='range-slider round'  type="range">
+                </span>
+
+                <span class="skip" id="reverse" >
+                    <i class="fa fa-arrow-circle-left fa-lg white"></i>
+                </span>
+
+                        
+            </div>
+
+
+
+            <!-- pannel container -->
+            <div id="buttonPanel" class='panel'>
+                <p class="panelText head">Choose An Overlay</p>
+
+                <div>
+                    <button id="breaks" class="btn btn-cstm">Dike Breaks</button>
+                </div>
+
+                <div>
+                    <button id="SOVI" class="btn btn-cstm">SOVI</button>
+                </div>
+
+                <div>
+                    <button id="BLS" class="btn btn-cstm">Employment</button>
+                </div>
+
+                <div>
+                    <button id="affectedPop" class="btn btn-cstm">People Affected</button>
+                </div>
+
+                <div>
+                    <button id="propertyLost" class="btn btn-cstm">Property Lost</button>
+                </div>
+
+                <div>
+                    <button id="medianIncome" class="btn btn-cstm">Median Income</button>
+                </div>
+
+                <div>
+                    <button id="reset" class="btn btn-cstm">Reset</button>    
+                </div>
+            </div>
+
+            <div id="infoPanel" class='panel'>
+                <p class="panelText head">Info Panel</p>
+
+                <div>
+                    <label class="info-label">Water Level</label>
+                    <div id="waterLevel"></div>    
+                </div>
+                <hr class="lineBreak">
+                <div>
+                    <label class="info-label">Number of Dike Breaks</lable>
+                    <div id="numberOfDikeBreaks"></div>    
+                </div>
+                <hr class="lineBreak">
+                <div>
+                    <label class="info-label">Total Flooded Area</label>
+                    <div id="totalFloodedArea"></div>    
+                </div>
+                <hr class="lineBreak">
+                <div>
+                    <label class="info-label">Max Property Losses</lable>
+                    <div id="maxPropertyLosses"></div>    
+                </div>
+                <hr class="lineBreak">
+                <div>
+                    <label class="info-label">Number of People Affected</lable>
+                    <div id="peopleAffected"></div>    
+                </div>
+
+            </div>
         </div>
 
-        <div id="sliderPanel" class="panel">
-            <p class="panelText head">Slide to see water levels</p>
-
-
-            <span class="skip" id="forward" >
-                <i class="fa fa-arrow-circle-right fa-lg white"></i>
-            </span>    
-
-            <span id="sliderStuff">
-                <input id="range" class='range-slider round'  type="range">
-            </span>
-
-            <span class="skip" id="reverse" >
-                <i class="fa fa-arrow-circle-left fa-lg white"></i>
-            </span>
-
-                    
-        </div>
-
-
-
-        <!-- pannel container -->
-        <div id="buttonPanel" class='panel'>
-            <p class="panelText head">Choose An Overlay</p>
-
-            <div>
-                <button id="breaks" class="btn btn-cstm">Dike Breaks</button>
+            <div id="legendPanel" class='panel'>
+                <p id="legendHeader" class="panelText head">Legend</p>
+                <span id='legendText' ></span>
+                <span id='colorLegend'>
+                    <div id='replace'></div>
+                </span>
             </div>
-
-            <div>
-                <button id="SOVI" class="btn btn-cstm">SOVI</button>
-            </div>
-
-            <div>
-                <button id="BLS" class="btn btn-cstm">Employment</button>
-            </div>
-
-            <div>
-                <button id="affectedPop" class="btn btn-cstm">People Affected</button>
-            </div>
-
-            <div>
-                <button id="propertyLost" class="btn btn-cstm">Property Lost</button>
-            </div>
-
-            <div>
-                <button id="medianIncome" class="btn btn-cstm">Median Income</button>
-            </div>
-
-            <div>
-                <button id="reset" class="btn btn-cstm">Reset</button>    
-            </div>
-        </div>
-
-        <div id="legendPanel" class='panel'>
-            <p class="panelText head">Legend</p>
-            <span id='legendText' class='panelText'></span>
-            <span id='colorLegend' class='panelText'>
-                <div id='replace'></div>
-            </span>
-        </div>
-
-        <div id="infoPanel" class='panel'>
-            <p class="panelText head">Info Panel</p>
-
-            <div>
-                <label class="info-label">Water Level</label>
-                <div id="waterLevel"></div>    
-            </div>
-            <hr class="lineBreak">
-            <div>
-                <label class="info-label">Number of Dike Breaks</lable>
-                <div id="numberOfDikeBreaks"></div>    
-            </div>
-            <hr class="lineBreak">
-            <div>
-                <label class="info-label">Total Flooded Area</label>
-                <div id="totalFloodedArea"></div>    
-            </div>
-            <hr class="lineBreak">
-            <div>
-                <label class="info-label">Max Property Losses</lable>
-                <div id="maxPropertyLosses"></div>    
-            </div>
-            <hr class="lineBreak">
-            <div>
-                <label class="info-label">Number of People Affected</lable>
-                <div id="peopleAffected"></div>    
-            </div>
-
-        </div>
     <!-- end map -->
     </div>
 

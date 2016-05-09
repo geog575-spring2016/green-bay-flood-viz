@@ -87,7 +87,7 @@ $('#document').ready(function()
 
 
 //disable drag when on info panel
-$('.panel').on('mousedown dblclick', function(e)
+$('#stopPropPanel').on('mousedown dblclick mousewheel', function(e)
 {
 	L.DomEvent.stopPropagation(e);
 });
@@ -140,6 +140,7 @@ $('#breaks').on('click', function()
          if ( map.getZoom() > 15 ){ dike.setStyle({weight: 4})}
          else if ( map.getZoom() <= 15 ){ dike.setStyle({weight: 2})}
     });
+    createLegend();
 });
 
 //load sovi when clicked
@@ -694,7 +695,6 @@ function loadMedianIncome()
 
 function createLegend(colors, breaks, description)
 {
-	$('#legendText').html(description);
 	
 	// var svg = '<svg id="attribute-legend" width="200px">';
 
@@ -704,22 +704,25 @@ function createLegend(colors, breaks, description)
 	// };
 
 	$('#replace').remove();
-	$('#colorLegend').append('<div id="replace" style="text-align: left">');
+	$('#colorLegend').append('<div id="replace" style="text-align: left;">');
 
-	// if(currentLayer == 'sovi' || currentLayer == 'bls')
-	// {
+	if(!map.hasLayer(dike))
+	{
+		$('#legendText').html(description);
+
 		for(var i = colors.length - 1; i >= 0; i--)
 		{
-			$('#replace').append('<span><hr class="lineBreak"><div style="float: left; display: inline-block; width:20px; height:20px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+ '</span>')
+			$('#replace').append('<li style="list-style-type:none"><span><div style="float: left; display: inline-block; width:15px; height:15px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+ '</span></li>')
 		};
-	// }
-	// else 
-	// {
-	// 	for(var i = colors.length - 1; i >= 0; i--)
-	// 	{
-	// 		$('#replace').append('<span><hr><div style="float: left; display: inline-block; width:20px; height:20px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+'-'+breaks[i-1]+ '</span>')
-	// 	};
-	// }
+
+	}
+	else 
+	{
+		$('#legendText').html('This is an explanation of dike breaks');
+
+
+		$('#replace').append('<svg height="50" width="200"><line x1="2" y1="10" x2="27" y2="10" style="stroke:black;stroke-width:2" /><text x="37" y="14" fill="#000">Existing Dike</text><line x1="2" y1="30" x2="27" y2="30" style="stroke:rgb(255,0,0);stroke-width:1"/><text x="37" y="34" fill="#000">Breached Dike</text></svg>');
+	}
 
 
 
@@ -737,6 +740,7 @@ function createLegend(colors, breaks, description)
 //get the map data
 function getData()
 {
+	var floodColor =  '#0D6C8C';
 	//flood level 1
 	$.ajax(fileArray[0],
 	{
@@ -747,7 +751,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .5, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .5, clickable: false};
 				}
 			}).addTo(map);
 		}
@@ -786,7 +790,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .2, clickable: false};
 				}
 			});
 		}
@@ -803,7 +807,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .2, clickable: false};
 				}
 			});
 		}
@@ -819,7 +823,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .2, clickable: false};
 				}
 			});
 		}
@@ -835,7 +839,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .2, clickable: false};
 				}
 			});
 		}
@@ -851,7 +855,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .2, clickable: false};
 				}
 			});
 		}
@@ -867,7 +871,7 @@ function getData()
 			{
 				style: function (feature)
 				{
-					return {fillColor: '#0D6C8C', stroke: false, fillOpacity: .2, clickable: false};
+					return {fillColor: floodColor, stroke: false, fillOpacity: .2, clickable: false};
 				}
 			});
 		}

@@ -446,6 +446,11 @@ function removeExtraLayers()
 function loadSOVI() 
 {
 	
+	//style and info variables
+	var colorArray = ['#ddd', '#fb6a4a', '#de2d26', '#a50f15'];
+	var breakArray = ['No Data', 'Low', 'Medium', 'High'];
+	var description = 'This is informatoin about SOVI'
+
 	removeExtraLayers();
 
 	floodDataArray[currentIndex].addTo(map);
@@ -464,17 +469,23 @@ function loadSOVI()
 		//sovi classes
 		switch(soviIndex)
 		{
-			case 'Low': layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); break;
-			case 'Medium': layer.setStyle({fillColor: '#de2d26', fillOpacity: .8, stroke: false}); break;
-			case 'High': layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false}); break;
+			case 'Low': layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false}); break;
+			case 'Medium': layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); break;
+			case 'High': layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); break;
 		};
 
 	});
+
+	createLegend(colorArray, breakArray, description);
 };
 
 //load the business at risk data
 function loadBLS() 
 {
+
+	var colorArray = ['#ddd', '#c994c7', '#df65b0', '#e7298a', '#980043'];
+	var classBreaks = ['No Data', '<100', '100 - 499', '500 - 999', '>1,000'];
+	var description = 'This is an explanation of BLS'
 
 	removeExtraLayers()
 
@@ -488,26 +499,32 @@ function loadBLS()
 		//nodata
 		if(!blsIndex)
 		{
-			layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false});	
+			layer.setStyle({fillColor: colorArray[0], fillOpacity: .7, stroke: false});	
 		}
 		
 		//bls classes
 		switch(blsIndex)
 		{
-			case '<100': layer.setStyle({fillColor: '#c994c7', fillOpacity: .7, stroke: false}); break;
-			case '100-499': layer.setStyle({fillColor: '#df65b0', fillOpacity: .7, stroke: false}); break;
-			case '500-999': layer.setStyle({fillColor: '#e7298a', fillOpacity: .7, stroke: false}); break;
-			case '1,000 or Greater': layer.setStyle({fillColor: '#980043', fillOpacity: .7, stroke: false}); break;
-			case 'Suppressed': layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false}); break;
+			case '<100': layer.setStyle({fillColor: colorArray[1], fillOpacity: .7, stroke: false}); break;
+			case '100-499': layer.setStyle({fillColor: colorArray[2], fillOpacity: .7, stroke: false}); break;
+			case '500-999': layer.setStyle({fillColor: colorArray[3], fillOpacity: .7, stroke: false}); break;
+			case '1,000 or Greater': layer.setStyle({fillColor: colorArray[4], fillOpacity: .7, stroke: false}); break;
+			case 'Suppressed': layer.setStyle({fillColor: colorArray[0], fillOpacity: .7, stroke: false}); break;
 		};
 
 	});
+
+	createLegend(colorArray, classBreaks, description);
 };
 
 
 //load the number of people affected
 function loadAffectedPopulation() 
 {
+
+	var colorArray = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
+	var classBreaks = ['<500', '500 - 1,000', '1,000 - 1,500', '1,500 - 2,000', '2,000 - 2,500', '>2,500'];
+	var description = 'A description of the affected population';
 
 	//remove all the layers
 	removeExtraLayers()
@@ -531,35 +548,41 @@ function loadAffectedPopulation()
 		//affected pop classes
 		if(popIndex < 500)
 		{ 
-			layer.setStyle({fillColor: '#fc9272', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false}); 
 		}
 		else if(popIndex < 1000)
 		{
-			layer.setStyle({fillColor: '#fb6a4a', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
 		}
 		else if(popIndex < 1500)
 		{
-			layer.setStyle({fillColor: '#ef3b2c', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false});
 		}
 		else if(popIndex < 2000)
 		{
-			layer.setStyle({fillColor: '#cb181d', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
 		}
 		else if(popIndex < 2500)
 		{
-			layer.setStyle({fillColor: '#a50f15', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
 		}
 		else
 		{
-			layer.setStyle({fillColor: '#67000d', fillOpacity: .5, stroke: false});
+			layer.setStyle({fillColor: colorArray[5], fillOpacity: .5, stroke: false});
 		}
 
 	});
+
+	createLegend(colorArray, classBreaks, description);
 };
 
 //load property lost
 function loadPropertyLoss() 
 {
+
+	var colorArray = ['#ddd', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'];
+	var classBreaks = ['$0', '?-$1.6 million', '$1.6 - $11 million', '$11 - $23 million', '$82 - $152 million', '>$152 million'];
+	var description = 'A description of maximum property loss';
 
 	//remove all the layers
 	removeExtraLayers()
@@ -572,32 +595,31 @@ function loadPropertyLoss()
 	{
 		
 		var propIndex = layer.feature.properties.MAX_PROPER;
-		console.log(layer.feature.properties.MAX_PROPER)
 		
 		//affected pop classes
 		if(propIndex == 0)
 		{
-			layer.setStyle({fillColor: '#ddd', fillOpacity: .8, stroke: false});	
+			layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false});	
 		}
 		else if(propIndex < 1600000)
 		{ 
-			layer.setStyle({fillColor: '#fdd0a2', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
 		}
 		else if(propIndex < 11000000)
 		{
-			layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); 
 		}
 		else if(propIndex < 23000000)
 		{
-			layer.setStyle({fillColor: '#fd8d3c', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
 		}
 		else if(propIndex < 82000000)
 		{
-			layer.setStyle({fillColor: '#e6550d', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
 		}
 		else if(propIndex < 152000000)
 		{
-			layer.setStyle({fillColor: '#a63603', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
 		};
 		// else
 		// {
@@ -605,11 +627,17 @@ function loadPropertyLoss()
 		// }
 
 	});
+
+	createLegend(colorArray, classBreaks, description);
 };
 
 //load median income
 function loadMedianIncome() 
 {
+
+	var colorArray = ['#ddd', '#fdae6b', '#fdae6b', '#f16913', '#d94801', '#a63603'];
+	var classBreaks = ['$0', '?-$34,000', '$34,000 - $42,000', '$42,000 - $55,000', '$55,000 - $73,000', '$73,000 - $99,000', '>$99,000'];
+	var description = 'A description of median income';
 
 	//remove all the layers
 	removeExtraLayers()
@@ -626,27 +654,27 @@ function loadMedianIncome()
 		//income of 0
 		if(incomeIndex == 0)
 		{
-			layer.setStyle({fillColor: '#ddd', fillOpacity: .8, stroke: false});	
+			layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false});	
 		}
 		else if(incomeIndex < 34000)
 		{ 
-			layer.setStyle({fillColor: '#fdae6b', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
 		}
 		else if(incomeIndex < 42000)
 		{
-			layer.setStyle({fillColor: '#fd8d3c', fillOpacity: .8, stroke: false}); 
+			layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); 
 		}
 		else if(incomeIndex< 55000)
 		{
-			layer.setStyle({fillColor: '#f16913', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
 		}
 		else if(incomeIndex < 73000)
 		{
-			layer.setStyle({fillColor: '#d94801', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
 		}
 		else if(incomeIndex < 99000)
 		{
-			layer.setStyle({fillColor: '#a63603', fillOpacity: .8, stroke: false});
+			layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
 		}
 		// else
 		// {
@@ -654,9 +682,51 @@ function loadMedianIncome()
 		// }
 
 	});
+
+	createLegend(colorArray, classBreaks, description);
 };
 
 
+
+//////////////////////
+/////////Legend///////
+//////////////////////
+
+function createLegend(colors, breaks, description)
+{
+	$('#legendText').html(description);
+	
+	// var svg = '<svg id="attribute-legend" width="200px">';
+
+	// for(var i = 0; i < colors.length; i++)
+	// {
+	//     svg += '<circle class="legend-circle" fill="yellow" fill-opacity="0" stroke="#FFF" r="10" cx="58" cy="' + (i + 10) * 10 + '"/><text fill="yellow">"banagas"</text>';
+	// };
+
+	$('#replace').remove();
+	$('#colorLegend').append('<div id="replace" style="text-align: left">');
+
+	// if(currentLayer == 'sovi' || currentLayer == 'bls')
+	// {
+		for(var i = colors.length - 1; i >= 0; i--)
+		{
+			$('#replace').append('<span><hr class="lineBreak"><div style="float: left; display: inline-block; width:20px; height:20px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+ '</span>')
+		};
+	// }
+	// else 
+	// {
+	// 	for(var i = colors.length - 1; i >= 0; i--)
+	// 	{
+	// 		$('#replace').append('<span><hr><div style="float: left; display: inline-block; width:20px; height:20px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+'-'+breaks[i-1]+ '</span>')
+	// 	};
+	// }
+
+
+
+
+	
+
+};
 
 
 //////////////////////

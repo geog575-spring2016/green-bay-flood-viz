@@ -52,7 +52,7 @@
 
 #sliderPanel
 {
-    height: 200px; 
+    height: 250px; 
     clear: right;
     text-align: left;   
 }
@@ -74,10 +74,10 @@
 
 #range
 {
-    position: relative;
-    width: 50%;
+   transform: rotate(270deg);
+    height:50%;
     display: inline-block;
-    text-align: center;
+
 }
 
 #sliderStuff
@@ -168,6 +168,7 @@
 
 .skip
 {
+    transform: rotate(270);
     background-color: black;
     border-color: black;
 }

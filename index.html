@@ -69,15 +69,18 @@
     <!-- map container -->
     <div id="map">
         <div id='stopPropPanel'>
+
+
             <!-- opacity slider pannel -->
             <div id="opacityPanel" class="panel">
                 <p class="panelText head">Satelite Opacity</p>
                 <input id="OPslide" type="range">
             </div>
 
+
+            <!-- water level slider -->
             <div id="sliderPanel" class="panel">
                 <p class="panelText head">Slide to see water levels</p>
-
 
                 <span class="skip" id="forward" >
                     <i class="fa fa-arrow-circle-right fa-lg white"></i>
@@ -89,93 +92,109 @@
 
                 <span class="skip" id="reverse" >
                     <i class="fa fa-arrow-circle-left fa-lg white"></i>
-                </span>
-
-                        
+                </span> 
             </div>
-
 
 
             <!-- pannel container -->
             <div id="buttonPanel" class='panel'>
                 <p class="panelText head">Choose An Overlay</p>
 
-                <div>
+                <span>
                     <button id="breaks" class="btn btn-cstm">Dike Breaks</button>
-                </div>
+                </span>
 
-                <div>
+                <i id="dikeBreakInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
+
+                <span>
                     <button id="SOVI" class="btn btn-cstm">SOVI</button>
-                </div>
+                </span>
 
-                <div>
+                <i id="soviInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
+
+                <span>
                     <button id="BLS" class="btn btn-cstm">Employment</button>
-                </div>
+                </span>
 
-                <div>
+                <i id="blsInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
+
+                <span>
                     <button id="affectedPop" class="btn btn-cstm">People Affected</button>
-                </div>
+                </span>
 
-                <div>
+                <i id="populationInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
+
+                <span>
+
                     <button id="propertyLost" class="btn btn-cstm">Property Lost</button>
-                </div>
+                </span>
 
-                <div>
+                <i id="propertyLostInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
+
+                <span>
                     <button id="medianIncome" class="btn btn-cstm">Median Income</button>
-                </div>
+                </span>
 
-                <div>
-                    <button id="reset" class="btn btn-cstm">Reset</button>    
-                </div>
+                <i id="incomeInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
+
+                <span>
+                    <button id="reset" class="btn btn-cstm-button">Reset</button>   
+                </span>
             </div>
 
-            <div id="infoPanel" class='panel'>
-                <p class="panelText head">Info Panel</p>
+            <div class='panel'>
+                <button class="btn btn-cstm-button">Agregate Flooding Stats</button>
+            </div>
 
-                <div>
-                    <label class="info-label">Water Level</label>
-                    <div id="waterLevel"></div>    
-                </div>
-                <hr class="lineBreak">
-                <div>
-                    <label class="info-label">Number of Dike Breaks</lable>
-                    <div id="numberOfDikeBreaks"></div>    
-                </div>
-                <hr class="lineBreak">
-                <div>
-                    <label class="info-label">Total Flooded Area</label>
-                    <div id="totalFloodedArea"></div>    
-                </div>
-                <hr class="lineBreak">
-                <div>
-                    <label class="info-label">Max Property Losses</lable>
-                    <div id="maxPropertyLosses"></div>    
-                </div>
-                <hr class="lineBreak">
-                <div>
-                    <label class="info-label">Number of People Affected</lable>
-                    <div id="peopleAffected"></div>    
-                </div>
+            <div id="waterLevelLegend"></div>
+        </div>
 
+
+        <!-- information panel -->
+        <div id="infoPanel" class='panel'>
+            <p class="panelText head">Info Panel</p>
+
+            <div>
+                <label class="info-label">Water Level</label>
+                <div id="waterLevel"></div>    
+            </div>
+            <hr class="lineBreak">
+            <div>
+                <label class="info-label">Number of Dike Breaks</label>
+                <div id="numberOfDikeBreaks"></div>    
+            </div>
+            <hr class="lineBreak">
+            <div>
+                <label class="info-label">Total Flooded Area</label>
+                <div id="totalFloodedArea"></div>    
+            </div>
+            <hr class="lineBreak">
+            <div>
+                <label class="info-label">Max Property Losses</label>
+                <div id="maxPropertyLosses"></div>    
+            </div>
+            <hr class="lineBreak">
+            <div>
+                <label class="info-label">Number of People Affected</label>
+                <div id="peopleAffected"></div>    
             </div>
         </div>
 
-            <div id="legendPanel" class='panel'>
-                <p id="legendHeader" class="panelText head">Legend</p>
-                <span id='legendText' ></span>
-                <span id='colorLegend'>
-                    <div id='replace'></div>
-                </span>
+
+        <!-- legend -->
+        <div id="legendPanel" class='panel'>
+            <div class="panelText head">
+                <span id="legendHeader"></span>
+                <button id="legendClose" type="button" class="close">×</button>
             </div>
+
+            <span id='legendText' ></span>
+            <span id='colorLegend'>
+                <div id='replace'></div>
+            </span>
+        </div>
     <!-- end map -->
     </div>
-
-    <!-- Navigation -->
-<!--     <nav id="navBarBottom" class="navbar navbar-inverse navbar-fixed-bottom">
-
-    </nav> -->
-
-
 
     <!-- Bootstrap Core JavaScript -->
     <script src="lib/bootstrap.min.js"></script>

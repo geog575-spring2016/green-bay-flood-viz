@@ -4,6 +4,8 @@
     opacity: .85; 
     border: solid 2px #2E8599; 
     border-radius: 5px;
+    margin-left: 6px;
+    margin-right: 4px;
 }
 
 #navBarBottom
@@ -50,8 +52,8 @@
 #opacityPanel
 {
     margin-top: 62px;
-    height: 70px;
-    min-height: 70px;
+    height: 60px;
+    min-height: 60px;
     text-align: center;
 }
 
@@ -64,25 +66,16 @@
 
 #buttonPanel
 {
-    height: 300px; 
+    height: 278px; 
     clear: right;
     text-align: left;
 }
 
-
-#infoPanel
-{
-    height: 280px; 
-    clear: right;
-    text-align: left;   
-}
-
 #range
 {
-   transform: rotate(270deg);
+    transform: rotate(270deg);
     height:50%;
     display: inline-block;
-
 }
 
 #sliderStuff
@@ -112,6 +105,17 @@
     margin-right: 6px;
 }
 
+#infoPanel
+{
+    position: relative;
+    top: 62px;
+    height: 280px; 
+    text-align: left;
+    z-index: 1; 
+    float: right; 
+    margin-right: 10px; 
+}
+
 .panelText
 {
     color: #2E8599;
@@ -122,7 +126,7 @@
 {
     position: relative;
     width: 206px;
-    float: right;
+    float: left;
     z-index: 1;
 }
 
@@ -141,8 +145,8 @@
 {
   z-index: 1;
   position: relative;
-  float: right;
-  margin-top: 400px;
+  float: left;
+  margin-top: 389px;
   margin-right: .4%;
   background-color: #aaa;
   color: #000;
@@ -151,18 +155,64 @@
 
 #legendHeader
 {
-  background-color: #3F3F3F;
   color: #3aa7c0;
+  display: inline-block;
+}
+
+#legendClose
+{
+    margin-right: 2px;
 }
 
 
-.btn-cstm
+.btn-cstm-button
 {
-    width: 100%;
+    width: 99.5%;
     margin-top: .5%;
     background-color: #222222;
     color:  #2E8599;
     text-align: left;
+}
+
+
+.btn-cstm-button-deactivate
+{
+    width: 99.5%;
+    margin-top: .5%;
+    background-color: #c20112;
+    color:  #2E8599;
+    text-align: left;
+}
+
+.btn-cstm
+{
+    width: 75%;
+    margin-top: .5%;
+    background-color: #222222;
+    color:  #2E8599;
+    text-align: left;
+
+}
+
+.btn-cstm:hover
+{
+    background-color: #3F3F3F;
+    border: solid 1px #373739;
+    color: #16B4D8;
+}
+
+.btn-cstm-legend
+{
+    width: 23%;
+    margin-top: .5%;
+    background-color: #222222;
+    color:  #2E8599;
+}
+
+.fa-lg
+{
+    font-size: 1.7em;
+    line-height: 1em;
 }
 
 .btn-cstm:hover
@@ -252,7 +302,7 @@ button.close:hover
 .leaflet-control-zoom
 {
     position: relative;
-    right: 205px;
+    left: 200px;
 }
 
 .leaflet-control-zoom-in

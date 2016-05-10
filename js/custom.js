@@ -44,7 +44,7 @@ var map = L.map("map",
 
 map.removeControl(map.zoomControl);
 
-new L.Control.Zoom({ position: 'topright' }).addTo(map);
+new L.Control.Zoom({ position: 'topleft' }).addTo(map);
 
 
 //streets tileset
@@ -83,11 +83,20 @@ $('#document').ready(function()
 	getData();
 	createFloodLevelSlider();
 	createOpacitySlider();
+
+	// legend is hidden when page initially loads
+	$('#legendPanel').hide();
 });
 
 
 //disable drag when on info panel
 $('#stopPropPanel').on('mousedown dblclick mousewheel', function(e)
+{
+	L.DomEvent.stopPropagation(e);
+});
+
+//disable drag when on legend
+$('.panel').on('mousedown dblclick mousewheel', function(e)
 {
 	L.DomEvent.stopPropagation(e);
 });
@@ -182,6 +191,67 @@ $('#medianIncome').click(function()
 	loadMedianIncome();
 	
 });
+
+
+
+// create and show legnd when sovi info icon is clicked
+$('#soviInfo').on('click', function()
+{
+	loadSoviLegend();
+
+	showLegend();
+})
+
+$('#blsInfo').on('click', function()
+{
+	loadEmploymentData();
+
+	showLegend();
+})
+
+// load sovi specific info when button is clicked
+function loadSoviLegend()
+{
+	var title = 'SOVI';
+	var colorArray = ['#ddd', '#fb6a4a', '#de2d26', '#a50f15'];
+	var classBreaks = ['No Data', 'Low', 'Medium', 'High'];
+	var description = 'This is informatoin about SOVI';
+
+	createLegend(colorArray, classBreaks, description, title);	
+}
+
+
+// load employment specific info when the button is clicked
+function loadEmploymentData()
+{
+	var title = 'BLS';
+	var colorArray = ['#ddd', '#c994c7', '#df65b0', '#e7298a', '#980043'];
+	var classBreaks = ['No Data', '<100', '100 - 499', '500 - 999', '>1,000'];
+	var description = 'This is an explanation of BLS';
+
+	createLegend(colorArray, classBreaks, description, title);		
+}
+
+
+// close the legend on click
+$('#legendClose').on('click', function()
+{
+	hideLegend();
+})
+
+// show the legend
+function showLegend()
+{
+	$('#legendPanel').fadeIn('slow');
+}
+
+// hide the legend
+function hideLegend()
+{
+	$('#legendPanel').fadeOut('slow');
+}
+
+
 
 
 
@@ -449,8 +519,8 @@ function loadSOVI()
 	
 	//style and info variables
 	var colorArray = ['#ddd', '#fb6a4a', '#de2d26', '#a50f15'];
-	var breakArray = ['No Data', 'Low', 'Medium', 'High'];
-	var description = 'This is informatoin about SOVI'
+	// var breakArray = ['No Data', 'Low', 'Medium', 'High'];
+	// var description = 'This is informatoin about SOVI'
 
 	removeExtraLayers();
 
@@ -459,25 +529,25 @@ function loadSOVI()
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
 		
-		var soviIndex = layer.feature.properties.SOVI_3CL;
+		var soviIndex = layer.feature.properties.sovi_3cl;
 
 		//no data
 		if(!soviIndex)
 		{
-			layer.setStyle({fillColor: '#ddd', fillOpacity: .7, stroke: false});	
+			layer.setStyle({fillColor: colorArray[0], fillOpacity: .7, stroke: false});	
 		}
 		
 		//sovi classes
 		switch(soviIndex)
 		{
-			case 'Low': layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false}); break;
-			case 'Medium': layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); break;
-			case 'High': layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); break;
+			case 'Low': layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); break;
+			case 'Medium': layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); break;
+			case 'High': layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false}); break;
 		};
 
 	});
 
-	createLegend(colorArray, breakArray, description);
+	// createLegend(colorArray, breakArray, description);
 };
 
 //load the business at risk data
@@ -495,7 +565,7 @@ function loadBLS()
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
 		
-		var blsIndex = layer.feature.properties.EMPLOYMENT;
+		var blsIndex = layer.feature.properties.employment;
 
 		//nodata
 		if(!blsIndex)
@@ -524,7 +594,7 @@ function loadAffectedPopulation()
 {
 
 	var colorArray = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
-	var classBreaks = ['<500', '500 - 1,000', '1,000 - 1,500', '1,500 - 2,000', '2,000 - 2,500', '>2,500'];
+	var classBreaks = ['<100', '100 - 300', '300 - 800', '800 - 1,350', '1,350 - 2,220', '>2,500'];
 	var description = 'A description of the affected population';
 
 	//remove all the layers
@@ -538,7 +608,7 @@ function loadAffectedPopulation()
 	{
 		
 		// console.log(layer.feature.properties.TOTAL_PEOP)
-		var popIndex = layer.feature.properties.TOTAL_PEOP;
+		var popIndex = layer.feature.properties.affected_p;
 
 		//nodata
 		// if(!popIndex)
@@ -547,30 +617,30 @@ function loadAffectedPopulation()
 		// }
 		
 		//affected pop classes
-		if(popIndex < 500)
+		if(popIndex < 100)
 		{ 
 			layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false}); 
 		}
-		else if(popIndex < 1000)
+		else if(popIndex < 300)
 		{
 			layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
 		}
-		else if(popIndex < 1500)
+		else if(popIndex < 800)
 		{
 			layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false});
 		}
-		else if(popIndex < 2000)
+		else if(popIndex < 1350)
 		{
 			layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
 		}
-		else if(popIndex < 2500)
+		else if(popIndex < 2220)
 		{
 			layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
 		}
-		else
-		{
-			layer.setStyle({fillColor: colorArray[5], fillOpacity: .5, stroke: false});
-		}
+		// else
+		// {
+		// 	layer.setStyle({fillColor: colorArray[5], fillOpacity: .5, stroke: false});
+		// }
 
 	});
 
@@ -595,7 +665,7 @@ function loadPropertyLoss()
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
 		
-		var propIndex = layer.feature.properties.MAX_PROPER;
+		var propIndex = layer.feature.properties.max_proper;
 		
 		//affected pop classes
 		if(propIndex == 0)
@@ -650,7 +720,7 @@ function loadMedianIncome()
 	floodDataArray[currentIndex].eachLayer(function(layer)
 	{
 		
-		var incomeIndex = layer.feature.properties.MEDIAN_INC;
+		var incomeIndex = layer.feature.properties.median_inc;
 
 		//income of 0
 		if(incomeIndex == 0)
@@ -693,7 +763,7 @@ function loadMedianIncome()
 /////////Legend///////
 //////////////////////
 
-function createLegend(colors, breaks, description)
+function createLegend(colors, breaks, description, title)
 {
 	
 	// var svg = '<svg id="attribute-legend" width="200px">';
@@ -705,6 +775,7 @@ function createLegend(colors, breaks, description)
 
 	$('#replace').remove();
 	$('#colorLegend').append('<div id="replace" style="text-align: left;">');
+	$('#legendHeader').html(title);
 
 	if(!map.hasLayer(dike))
 	{

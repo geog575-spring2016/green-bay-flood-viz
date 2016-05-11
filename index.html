@@ -19,6 +19,8 @@
 
         <!-- jquery link -->
     <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+
 
     <!-- leaflet core and css -->
     <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
@@ -56,7 +58,7 @@
             </div>
             <div id="modalBody" class="modal-body">
                 <p><!--about text-->
-                    This tool provides data and maps depicting potential flooding impacts in the City of Green Bay. Water levels were calculated based on wave heights and historic storm surges seen in the area. The viewer visualises potential breaks in the Green Bay city dyke based on a set of flood levels that is adjusted using the water level slider.<br>Use the water level slider to increase and decrease the water level from the lake long term average up to historic highs. These highs include the potential damage by water based on wind events.<br>Overlays of potential property value damage give the user an indication of the potential costs to buildings different levels of flooding may have.<br>Applying the Business vulnerability index layer gives the user an estimate of potential losses to business at each lake level based on flood conditions. This data is aggregated to census block groups and was derived from Bureau of Labor Statistics.
+                    This tool provides data and maps depicting potential coastal flooding impacts in the City of Green Bay. Water levels were calculated based on historic storm events seen in the area and possible combinations of historic water levels and historic storm surges. The viewer visualises potential overtopping of the dike protecting the east side of the city based on a set of flood levels that is adjusted using the water level slider.
                 </p>
             </div>
             <div class="modal-footer modalHeadFoot">
@@ -81,18 +83,34 @@
             <!-- water level slider -->
             <div id="sliderPanel" class="panel">
                 <p class="panelText head">Slide to see water levels</p>
-<!-- 
-                <span class="skip" id="forward" >
-                    <i class="fa fa-arrow-circle-right fa-lg white"></i>
-                </span>     -->
+                    <div class="ui-slider-labels">
+                            <div>
+                                 <button id="6" class="ui-slider-label btn btn-cstm-water">591.00 ft</button>
+                            </div>    
+                            <div>
+                                 <button id="5" class="ui-slider-label btn btn-cstm-water">582.79 ft</button>
+                            </div> 
+                            <div>
+                                 <button id="4" class="ui-slider-label btn btn-cstm-water">583.81 ft</button>
+                            </div>  
 
-                <span id="sliderStuff">
-                    <input id="range" class='range-slider round'  type="range">
-                </span>
+                            <div>
+                                 <button id="3" class="ui-slider-label btn btn-cstm-water">584.97 ft</button>
+                            </div> 
+                            <div>
+                                 <button id="2" class="ui-slider-label btn btn-cstm-water">583.81 ft</button>
+                            </div>
 
-<!--                 <span class="skip" id="reverse" >
-                    <i class="fa fa-arrow-circle-left fa-lg white"></i>
-                </span> -->
+                            <div>
+                                 <button id="1" class="ui-slider-label btn btn-cstm-water">582.79 ft</button>
+                            </div>  
+                            <div>
+                                 <button id="0" class="ui-slider-label btn btn-cstm-water">579.21 ft</button>
+                            </div>
+                    </div>
+
+                  <div id="slider-holder">
+                  </div>
 
                 <div>
                     <button id="showInfoPanel" class="btn btn-cstm-info">Flood Level Data</button>
@@ -121,7 +139,7 @@
                 </button>
 
                 <span>
-                    <button id="BLS" class="btn btn-cstm">Employment</button>
+                    <button id="BLS" class="btn btn-cstm">Business</button>
                 </span>
                 
                 <button  id="blsInfo" class="btn btn-cstm-legend">
@@ -148,7 +166,7 @@
                     <button id="medianIncome" class="btn btn-cstm">Median Income</button>
                 </span>
 
-                <button id="propertyLostInfo" class="btn btn-cstm-legend">
+                <button id="incomeInfo" class="btn btn-cstm-legend">
                     <i class="fa fa-question-circle-o fa-lg white" aria-hidden="true"></i>
                 </button>
 

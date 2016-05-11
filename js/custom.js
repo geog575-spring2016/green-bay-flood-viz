@@ -175,7 +175,7 @@
 	//load median income
 	$('#medianIncome').click(function() 
 	{
-		currentLayer = 'medianIncome'
+		currentLayer = 'medianIncome';
 		loadMedianIncome();
 		
 	});
@@ -186,6 +186,59 @@
 		turnOnFloods();
 	});
 
+	//////////////////////////////////////
+	// buttons to change flood levels/////
+	//////////////////////////////////////
+//changing the water level via the buttons while adjusting the slider
+$('#6').on('click', function()
+{
+	$('#slider-vertical').slider("value", 6);
+	prevIndex = currentIndex;
+	currentIndex = 6;
+	updateFloodLayers();
+})
+$('#5').on('click', function()
+{
+	$('#slider-vertical').slider("value", 5);
+	prevIndex = currentIndex;
+	currentIndex = 5;
+	updateFloodLayers();
+})
+$('#4').on('click', function()
+{
+	$('#slider-vertical').slider("value", 4);
+	prevIndex = currentIndex;
+	currentIndex = 4;
+	updateFloodLayers();
+})
+$('#3').on('click', function()
+{
+	$('#slider-vertical').slider("value", 3);
+	prevIndex = currentIndex;
+	currentIndex = 3;
+	updateFloodLayers();
+})
+$('#2').on('click', function()
+{
+	$('#slider-vertical').slider("value", 2);
+	prevIndex = currentIndex;
+	currentIndex = 1;
+	updateFloodLayers();
+})
+$('#1').on('click', function()
+{
+	$('#slider-vertical').slider("value", 1);
+	prevIndex = currentIndex;
+	currentIndex = 1;
+	updateFloodLayers();
+})
+$('#0').on('click', function()
+{
+	$('#slider-vertical').slider("value", 0);
+	prevIndex = currentIndex;
+	currentIndex = 0;
+	updateFloodLayers();
+})
 
 
 	//////////////////////////////////////
@@ -199,7 +252,7 @@
 		$('#replace').remove();
 		$('#colorLegend').append('<div id="replace" style="text-align: left;">');
 		$('#legendHeader').html(title);
-		$('#legendText').html('This is an explanation of dike breaks');
+		$('#legendText').html('This shows the condition of the Green Bay dike based on different lake heights. This data is derived from a D.E.M of the Green Bay area and water levels at the specified lake levels.');
 		$('#replace').append('<svg height="50" width="200">' +
 								'<line x1="2" y1="10" x2="27" y2="10" style="stroke:black;stroke-width:2" />' +
 								'<text x="37" y="14" fill="#000">Existing Dike</text>' +
@@ -338,7 +391,8 @@
 		var title = 'SOVI';
 		var colorArray = ['#ddd', '#fb6a4a', '#de2d26', '#a50f15'];
 		var classBreaks = ['No Data', 'Low', 'Medium', 'High'];
-		var description = 'This is informatoin about SOVI';
+ 		var description = "Applying overlays of social vulnerability to natural hazards, based on human vulnerability to hazards based on 29 socioeconomic variables looking at a community's ability to cope with hazards (pre, during and post event).";
+
 
 		createLegend(colorArray, classBreaks, description, title);	
 	}
@@ -346,10 +400,10 @@
 	// load employment specific info legend 
 	function loadEmploymentLegendData()
 	{
-		var title = 'BLS';
+		var title = 'Businesses';
 		var colorArray = ['#ddd', '#c994c7', '#df65b0', '#e7298a', '#980043'];
 		var classBreaks = ['No Data', '<100', '100 - 499', '500 - 999', '>1,000'];
-		var description = 'This is an explanation of BLS';
+		var description = 'Overlays potentially affected business show the potential impacts of flood on businesses. Business data collected by the Bureau of Labor Statistics aggregated to census block groups. ';
 
 		createLegend(colorArray, classBreaks, description, title);		
 	}
@@ -358,9 +412,9 @@
 	function loadPopulationLegendData()
 	{
 		var title = 'Population Affected'
-		var colorArray = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
+		var colorArray = ['#bcbddc', '#9e9ac8', '#807dba', '#6a51a3', '#54278f', '#3f007d'];
 		var classBreaks = ['<100', '100 - 300', '300 - 800', '800 - 1,350', '1,350 - 2,220', '>2,500'];
-		var description = 'A description of the affected population';
+		var description = 'This is an estimate of number of people per block potentially affected by flooding. Using population data from the 2014 American Community Survey reallocated to parcels, including residential class. This was then compared to the percentage of the residential parcels flooded.';
 
 		createLegend(colorArray, classBreaks, description, title);		
 	} 
@@ -372,7 +426,7 @@
 		var title = 'Property Losses';
 		var colorArray = ['#ddd', '#fdd0a2', '#fdae6b', '#fd8d3c', '#e6550d', '#a63603'];
 		var classBreaks = ['$0', '?-$1.6 million', '$1.6 - $11 million', '$11 - $23 million', '$82 - $152 million', '>$152 million'];
-		var description = 'A description of maximum property loss';
+		var description = 'Overlays of potential property losses from flooding, based on improved structure value($USD).';
 
 		createLegend(colorArray, classBreaks, description, title);		
 	}
@@ -382,9 +436,10 @@
 	{
 		console.log('income data')
 		var title = 'Household Income';
-		var colorArray = ['#ddd', '#fdae6b', '#fdae6b', '#f16913', '#d94801', '#a63603'];
+	
+		var colorArray = ['#ddd', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'];
 		var classBreaks = ['$0', '?-$34,000', '$34,000 - $42,000', '$42,000 - $55,000', '$55,000 - $73,000', '$73,000 - $99,000', '>$99,000'];
-		var description = 'A description of median income';
+		var description = 'The median income households at a block level, based on the 2014 American Community Survey.';
 
 		createLegend(colorArray, classBreaks, description, title);		
 	}
@@ -427,69 +482,6 @@
 ///////////////////////
 /////////Sliders///////
 ///////////////////////
-
-	////////////////////////
-	// flood level slider //
-	////////////////////////
-
-	// create the flood level slider
-	function createFloodLevelSlider()
-	{
-		// set slider attributes
-		$('#range').attr(
-		{
-			max: 6,
-			min: 0,
-			value: 0,
-			step: 1
-		});
-
-		$('.skip').click(function()
-		{
-
-		// get the old index value
-		var index = $('#range').val();
-		prevIndex = index;
-
-		// increment or decrement depending on button clicked
-		if ($(this).attr('id') == 'forward')
-		{
-			index++;
-
-			//limit the index from moving past 6
-			index = index > 6 ? 6 : index;
-
-		}
-		else if ($(this).attr('id') == 'reverse')
-		{
-			index--;
-
-			//limit the index from going past 0
-			index = index < 0 ? 0 : index;
-		};
-
-		// update slider
-		$('#range').val(index);
-		currentIndex = index;
-
-		//Update Flood Layers
-		updateFloodLayers();
-
-		});
-
-		$('#range').on('input', function()
-		{
-			prevIndex = currentIndex;
-			currentIndex = $(this).val();
-
-			// call update layers
-			updateFloodLayers();
-
-			updateAggregateStatistics();
-
-		});
-	};
-
 	/////////////////////////////
 	/////// Satellite Slider ////
 	/////////////////////////////
@@ -532,6 +524,44 @@
 		});
 	};
 
+	////////////////////////
+	// flood level slider //
+	////////////////////////
+
+
+	// create the flood level slider
+function createFloodLevelSlider()
+{	
+// set slider attributes
+	$('#slider-holder').append('<div id="slider-vertical">')
+	$( "#slider-vertical" ).slider
+		({
+     	 	orientation: "vertical",
+      		range: "max",
+      		min: -1,
+      		max: 6,
+      		value: 0,
+      		step: 1,
+      		slide: function( event, ui ) 
+		    {
+
+		        if(ui.value == -1)
+		        {
+		        	ui.value = 0;
+		        	$('#slider-vertical').remove();
+		        	createFloodLevelSlider();
+
+		        };
+		        prevIndex = currentIndex;
+				currentIndex =  ui.value;
+				updateFloodLayers();
+
+				updateAggregateStatistics();
+		  	}
+
+		});
+
+};
 
 
 //////////////////////
@@ -744,7 +774,7 @@
 	function loadAffectedPopulation() 
 	{
 
-		var colorArray = ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'];
+		var colorArray = ['#bcbddc', '#9e9ac8', '#807dba', '#6a51a3', '#54278f', '#3f007d'];
 
 		//remove all the layers
 		removeExtraLayers()
@@ -767,23 +797,23 @@
 			//affected pop classes
 			if(popIndex < 100)
 			{ 
-				layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[0], fillOpacity: .9, stroke: false}); 
 			}
 			else if(popIndex < 300)
 			{
-				layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[1], fillOpacity: .9, stroke: false}); 
 			}
 			else if(popIndex < 800)
 			{
-				layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[2], fillOpacity: .9, stroke: false});
 			}
 			else if(popIndex < 1350)
 			{
-				layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[3], fillOpacity: .9, stroke: false});
 			}
 			else if(popIndex < 2220)
 			{
-				layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[4], fillOpacity: .9, stroke: false});
 			}
 		});
 	};
@@ -835,7 +865,7 @@
 	//load median income
 	function loadMedianIncome() 
 	{
-		var colorArray = ['#ddd', '#fdae6b', '#fdae6b', '#f16913', '#d94801', '#a63603'];
+		var colorArray = ['#ddd', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'];
 
 		//remove all the layers
 		removeExtraLayers()

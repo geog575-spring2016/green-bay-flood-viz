@@ -743,15 +743,15 @@ function createFloodLevelSlider()
 			//no data
 			if(!soviIndex)
 			{
-				layer.setStyle({fillColor: colorArray[0], fillOpacity: .7, stroke: false});	
+				layer.setStyle({fillColor: colorArray[0], fillOpacity: .65, stroke: false});	
 			}
 			
 			//sovi classes
 			switch(soviIndex)
 			{
-				case 'Low': layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); break;
-				case 'Medium': layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); break;
-				case 'High': layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false}); break;
+				case 'Low': layer.setStyle({fillColor: colorArray[1], fillOpacity: .65, stroke: false}); break;
+				case 'Medium': layer.setStyle({fillColor: colorArray[2], fillOpacity: .65, stroke: false}); break;
+				case 'High': layer.setStyle({fillColor: colorArray[3], fillOpacity: .65, stroke: false}); break;
 			};
 
 		});
@@ -815,23 +815,23 @@ function createFloodLevelSlider()
 			}
 			else if(popIndex < 100)
 			{ 
-				layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[1], fillOpacity: .65, stroke: false}); 
 			}
 			else if(popIndex < 300)
 			{
-				layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[2], fillOpacity: .65, stroke: false}); 
 			}
 			else if(popIndex < 800)
 			{
-				layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[3], fillOpacity: .65, stroke: false});
 			}
 			else if(popIndex < 1350)
 			{
-				layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[4], fillOpacity: .65, stroke: false});
 			}
 			else if(popIndex < 2220)
 			{
-				layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[5], fillOpacity: .65, stroke: false});
 			}
 		});
 	};
@@ -855,27 +855,27 @@ function createFloodLevelSlider()
 			//affected pop classes
 			if(propIndex == 0)
 			{
-				layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false});	
+				layer.setStyle({fillColor: colorArray[0], fillOpacity: .65, stroke: false});	
 			}
 			else if(propIndex < 1600000)
 			{ 
-				layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[1], fillOpacity: .65, stroke: false}); 
 			}
 			else if(propIndex < 11000000)
 			{
-				layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[2], fillOpacity: .65, stroke: false}); 
 			}
 			else if(propIndex < 23000000)
 			{
-				layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[3], fillOpacity: .65, stroke: false});
 			}
 			else if(propIndex < 82000000)
 			{
-				layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[4], fillOpacity: .65, stroke: false});
 			}
 			else if(propIndex < 152000000)
 			{
-				layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[5], fillOpacity: .65, stroke: false});
 			};
 		});
 	};
@@ -899,27 +899,27 @@ function createFloodLevelSlider()
 			//income of 0
 			if(incomeIndex == 0)
 			{
-				layer.setStyle({fillColor: colorArray[0], fillOpacity: .8, stroke: false});	
+				layer.setStyle({fillColor: colorArray[0], fillOpacity: .65, stroke: false});	
 			}
 			else if(incomeIndex < 34000)
 			{ 
-				layer.setStyle({fillColor: colorArray[1], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[1], fillOpacity: .65, stroke: false}); 
 			}
 			else if(incomeIndex < 42000)
 			{
-				layer.setStyle({fillColor: colorArray[2], fillOpacity: .8, stroke: false}); 
+				layer.setStyle({fillColor: colorArray[2], fillOpacity: .65, stroke: false}); 
 			}
 			else if(incomeIndex< 55000)
 			{
-				layer.setStyle({fillColor: colorArray[3], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[3], fillOpacity: .65, stroke: false});
 			}
 			else if(incomeIndex < 73000)
 			{
-				layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[4], fillOpacity: .65, stroke: false});
 			}
 			else if(incomeIndex < 99000)
 			{
-				layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
+				layer.setStyle({fillColor: colorArray[5], fillOpacity: .65, stroke: false});
 			}
 		});
 	};

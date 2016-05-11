@@ -1,7 +1,7 @@
 #navBar
 {
     background-color: #222222;
-    opacity: .85; 
+    opacity: .95; 
     border: solid 2px #2E8599; 
     border-radius: 5px;
     margin-left: 6px;
@@ -11,7 +11,7 @@
 #navBarBottom
 {
     background-color: none;
-    opacity: .85; 
+    opacity: .95; 
 }
 
 
@@ -175,7 +175,7 @@
 .panel 
 {
     width: 200px;
-    opacity: .85;
+    opacity: .95;
     background-color: #222222;
     border: solid 2px #2E8599;
     border-radius: 5px;
@@ -396,7 +396,7 @@ button.close:hover
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599; 
     display: inline-block;
-    opacity: .85;
+    opacity: .95;
     box-shadow: none;
 }
 
@@ -406,7 +406,7 @@ button.close:hover
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599;
     display: inline-block;
-    opacity: .85;
+    opacity: .95;
     box-shadow: none;
 }
 

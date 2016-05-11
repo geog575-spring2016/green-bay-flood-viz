@@ -231,7 +231,7 @@
 	{
 		$('#slider-vertical').slider("value", 2);
 		prevIndex = currentIndex;
-		currentIndex = 1;
+		currentIndex = 2;
 		updateFloodLayers();
 	})
 	$('#1').on('click', function()

@@ -16,6 +16,15 @@
 
 	var aggregateFloodStatistics = 'data/floods/aggregateFloodStatistics.json';
 
+	//map layer variables
+	var floodDataArray = [];
+	var dike;
+	var baseDike;
+	var breakPoints;
+	var aggregateFloodStats;
+
+	var depth = ['579.21 ft','582.79 ft','583.81 ft','584.97 ft','583.81 ft','582.79 ft','591.00 ft'];
+
 	var floodLevelArray = ['Annual Mean for Lakes Michigan-Huron from 1918-2014',
 							'Record High Monthly Mean for Lakes Michigan-Huron from 1918-2014',
 							'Gage Extreme High (hourly) [April 30, 1997, 7:00 pm Central Standard Time]',
@@ -23,13 +32,6 @@
 							'Recent high water level + worst surge',
 							'Record Historic Storm Surge Projected on Record High Monthly Mean',
 							'Base Flood Elevation for AE Zone east of Menominee Avenue'];
-
-	//map layer variables
-	var floodDataArray = [];
-	var dike;
-	var baseDike;
-	var breakPoints;
-	var aggregateFloodStats;
 
 	//variables to control map interactions
 	var currentIndex = 0,
@@ -470,6 +472,7 @@
 			}
 		}).done(function(response)
 		{
+			$('#waterLevel').html(depth[currentIndex]);
 			$('#floodHeader').html(floodLevelArray[0]);
 			$('#numberOfDikeBreaks').html(aggregateFloodStats[currentIndex].numDikeBreaks);
 			$('#totalFloodedArea').html(aggregateFloodStats[currentIndex].floodArea);
@@ -481,6 +484,7 @@
 	//update aggregate flooding statistics in info panel based on flood level
 	function updateAggregateStatistics()
 	{
+		$('#waterLevel').html(depth[currentIndex]);
 		$('#floodHeader').html(floodLevelArray[currentIndex]);
 		$('#numberOfDikeBreaks').html(aggregateFloodStats[currentIndex].numDikeBreaks);
 		$('#totalFloodedArea').html(aggregateFloodStats[currentIndex].floodArea);

@@ -138,7 +138,6 @@
 	         if ( map.getZoom() > 15 ){ dike.setStyle({weight: 4})}
 	         else if ( map.getZoom() <= 15 ){ dike.setStyle({weight: 2})}
 	    });
-	    createLegend();
 	});
 
 	//load sovi when clicked
@@ -176,9 +175,15 @@
 	//load median income
 	$('#medianIncome').click(function() 
 	{
-		currentLayer = 'medianIncome'; 
+		currentLayer = 'medianIncome'
 		loadMedianIncome();
 		
+	});
+
+	// turn on the flooding layer
+	$('#turnOnFloods').on('click', function()
+	{
+		turnOnFloods();
 	});
 
 
@@ -244,6 +249,7 @@
 
 		showLegend();
 	});
+
 
 
 
@@ -568,29 +574,34 @@
 
 		//slider has moved forward
 		//add number of layers that the slider has moved
-		if(change > 0)
+		if(currentLayer == 'lakes')
 		{
-			for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
-			{
-				floodDataArray[i].addTo(map);
-			};
-		}
 
-		//slider has moved backwards
-		//remove number of layers that slider has moved
-		else if(change < 0)
-		{
-			for(var i = Number(currentIndex) + 1; i <= Number(prevIndex); i++)
+			if(change > 0)
 			{
-				map.removeLayer(floodDataArray[i]);
-			};
-		};
+				for(var i = Number(prevIndex) + 1; i <= Number(currentIndex); i++)
+				{
+					var addFloodLayer = floodDataArray[i].addTo(map);
+					$(addFloodLayer).fadeIn(5000)
+				};
+			}
 
-		//check whether map has breakpoints
-		//update if they're found
-		if(map.hasLayer(dike))
-		{
-			updateDikeBreaks();
+			//slider has moved backwards
+			//remove number of layers that slider has moved
+			else if(change < 0)
+			{
+				for(var i = Number(currentIndex) + 1; i <= Number(prevIndex); i++)
+				{
+					map.removeLayer(floodDataArray[i]);
+				};
+			};
+
+			//check whether map has breakpoints
+			//update if they're found
+			if(map.hasLayer(dike))
+			{
+				updateDikeBreaks();
+			};
 		};
 
 		if(currentLayer != 'lakes')

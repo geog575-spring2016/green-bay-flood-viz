@@ -5,7 +5,7 @@
     border: solid 2px #2E8599; 
     border-radius: 5px;
     margin-left: 6px;
-    margin-right: 4px;
+    margin-right: 6px;
 }
 
 #navBarBottom
@@ -51,9 +51,9 @@
 
 #opacityPanel
 {
-    margin-top: 62px;
-    height: 60px;
-    min-height: 60px;
+    margin-top: 59px;
+    height: 52px;
+    min-height: 52px;
     text-align: center;
 }
 
@@ -66,7 +66,7 @@
 
 #buttonPanel
 {
-    height: 278px; 
+    height: 310px; 
     clear: right;
     text-align: left;
 }
@@ -86,7 +86,7 @@
 
 #showInfoPanel
 {
-    top: 342px;
+    top: 329px;
     position: absolute;
 }
 
@@ -123,11 +123,11 @@
 #infoPanel
 {
     position: absolute;
-    top: 130px;
+    top: 118px;
     height: 230px; 
     text-align: left;
     z-index: 1; 
-    left:209px;
+    left:207px;
     margin-right: .4%;
 }
 
@@ -160,18 +160,18 @@
     border: solid 2px #2E8599;
     border-radius: 5px;
     padding: .25%;
-    margin-bottom: 4%;
-    margin-left: 11px;
+    margin-bottom: 6px;
 }
 
 #legendPanel
 {
   z-index: 1;
   position: absolute;
-  left: 209px;
-  margin-top: 389px;
+  left: 206px;
+  margin-top: 372px;
   margin-right: .4%;
-  background-color: #aaa;
+/*  background-color: #e0e1e0;*/ /*good color*/
+  background-color: #F5F5F3;
   color: #000;
   border: solid 2px #3aa7c0;;
 }
@@ -214,7 +214,6 @@
     background-color: #222222;
     color:  #2E8599;
     text-align: left;
-
 }
 
 .btn-cstm:hover
@@ -230,7 +229,16 @@
     margin-top: .5%;
     background-color: #222222;
     color:  #2E8599;
+    font-size: 12px;
 }
+
+/*.btn-cstm-legend:hover
+{
+    background-color: #3F3F3F;
+    border: solid 1px #373739;
+    color: #16B4D8;
+}*/
+
 
 .fa-lg
 {
@@ -238,12 +246,6 @@
     line-height: 1em;
 }
 
-.btn-cstm:hover
-{
-    background-color: #3F3F3F;
-    border: solid 1px #373739;
-    color: #16B4D8;
-}
 
 .btn.focus, .btn:focus, .btn:hover 
 {
@@ -251,6 +253,14 @@
     border: solid 1px #16B4D8;
     color: #16B4D8;
 }
+
+.btn-cstm-legend.focus, .btn-cstm-legend:focus, .btn-cstm-legend:hover
+{
+    background-color: #3F3F3F;
+    border: solid 1px #16B4D8;
+    color: #16B4D8;
+}
+
 
 .info-label
 {
@@ -326,12 +336,12 @@ button.close:hover
 .leaflet-control-zoom
 {
     position: relative;
-    left: 208px;
+    left: 197px;
 }
 
 .leaflet-control-zoom-in
 {
-    margin-top: 50px;
+    margin-top: 49px;
     border-right:solid 2px #2E8599 ;
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599; 

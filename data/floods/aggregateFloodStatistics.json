@@ -1,0 +1,51 @@
+[
+  {
+    "waterLevel": "Water Level1",
+    "numDikeBreaks": "NumDikeBreaks1",
+    "floodArea": "floodArea1",
+    "maxPropLosses": "maxPropLosses1",
+    "numPeopleAffected": "numPeopleAffected1"
+  },
+  {
+    "waterLevel": "Water Level2",
+    "numDikeBreaks": "NumDikeBreaks2",
+    "floodArea": "floodArea2",
+    "maxPropLosses": "maxPropLosses2",
+    "numPeopleAffected": "numPeopleAffected2"
+  },
+  {
+    "waterLevel": "Water Level3",
+    "numDikeBreaks": "NumDikeBreaks3",
+    "floodArea": "floodArea3",
+    "maxPropLosses": "maxPropLosses3",
+    "numPeopleAffected": "numPeopleAffected3"
+  },
+  {
+    "waterLevel": "Water Level4",
+    "numDikeBreaks": "NumDikeBreaks4",
+    "floodArea": "floodArea4",
+    "maxPropLosses": "maxPropLosses4",
+    "numPeopleAffected": "numPeopleAffected4"
+  },
+  {
+    "waterLevel": "Water Level5",
+    "numDikeBreaks": "NumDikeBreaks5",
+    "floodArea": "floodArea5",
+    "maxPropLosses": "maxPropLosses5",
+    "numPeopleAffected": "numPeopleAffected5"
+  },
+  {
+    "waterLevel": "Water Level6",
+    "numDikeBreaks": "NumDikeBreaks6",
+    "floodArea": "floodArea6",
+    "maxPropLosses": "maxPropLosses6",
+    "numPeopleAffected": "numPeopleAffected6"
+  },
+  {
+    "waterLevel": "Water Level7",
+    "numDikeBreaks": "NumDikeBreaks7",
+    "floodArea": "floodArea7",
+    "maxPropLosses": "maxPropLosses7",
+    "numPeopleAffected": "numPeopleAffected7"
+  }
+]

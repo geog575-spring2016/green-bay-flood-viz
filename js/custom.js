@@ -14,11 +14,14 @@
 	var dikeFileArray= ['data/breakpoints.geojson',
 						'data/manuallyClippedDike.geojson'];
 
+	var aggregateFloodStatistics = 'data/floods/aggregateFloodStatistics.json';
+
 	//map layer variables
 	var floodDataArray = [];
 	var dike;
 	var baseDike;
 	var breakPoints;
+	var aggregateFloodStats;
 
 	//variables to control map interactions
 	var currentIndex = 0,
@@ -86,6 +89,9 @@
 
 		// legend is hidden when page initially loads
 		$('#legendPanel').hide();
+
+		//information panel is hidden when page initially loads
+		$('#infoPanel').hide();
 	});
 
 
@@ -101,6 +107,9 @@
 		L.DomEvent.stopPropagation(e);
 	});
 
+
+	// load information into the information panel on load
+	getAggregateStatistics();
 
 
 
@@ -174,13 +183,27 @@
 
 
 
-//////////////////////
-// legend functions //
-//////////////////////
-
 	//////////////////////////////////////
 	// buttons to load data into legend //
 	//////////////////////////////////////
+
+	// show the dike legend when question is clicked
+	$('#dikeBreakInfo').on('click', function()
+	{
+		var title = 'Dike Breaks';
+		$('#replace').remove();
+		$('#colorLegend').append('<div id="replace" style="text-align: left;">');
+		$('#legendHeader').html(title);
+		$('#legendText').html('This is an explanation of dike breaks');
+		$('#replace').append('<svg height="50" width="200">' +
+								'<line x1="2" y1="10" x2="27" y2="10" style="stroke:black;stroke-width:2" />' +
+								'<text x="37" y="14" fill="#000">Existing Dike</text>' +
+								'<line x1="2" y1="30" x2="27" y2="30" style="stroke:rgb(255,0,0);stroke-width:1"/>' +
+								'<text x="37" y="34" fill="#000">Breached Dike</text>' +
+							'</svg>');
+
+		showLegend();
+	});
 
 	// show sovi legend when question is clicked
 	$('#soviInfo').on('click', function()
@@ -222,6 +245,41 @@
 		showLegend();
 	});
 
+
+
+//////////////////////////
+// info panel functions //
+//////////////////////////
+
+	// show info panel when show is clicked
+	$('#showInfoPanel').on('click', function()
+	{
+		showInfoPanel();
+	})
+
+	// close the info panel when close is clicked
+	$('#hideInfoPanel').on('click', function()
+	{
+		hideInfoPanel();
+	})
+
+	// show the info panel
+	function showInfoPanel()
+	{
+		$('#infoPanel').fadeIn('slow');
+	}
+
+	// hide the legend
+	function hideInfoPanel()
+	{
+		$('#infoPanel').fadeOut('slow');
+	}
+
+
+//////////////////////
+// legend functions //
+//////////////////////
+
 	///////////////////////
 	// create the legend //
 	///////////////////////
@@ -232,21 +290,12 @@
 		$('#colorLegend').append('<div id="replace" style="text-align: left;">');
 		$('#legendHeader').html(title);
 
-		if(!map.hasLayer(dike))
-		{
-			$('#legendText').html(description);
+		$('#legendText').html(description);
 
-			for(var i = colors.length - 1; i >= 0; i--)
-			{
-				$('#replace').append('<li style="list-style-type:none"><span><div style="float: left; display: inline-block; width:15px; height:15px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+ '</span></li>')
-			};
-		}
-		else 
+		for(var i = colors.length - 1; i >= 0; i--)
 		{
-			$('#legendText').html('This is an explanation of dike breaks');
-
-			$('#replace').append('<svg height="50" width="200"><line x1="2" y1="10" x2="27" y2="10" style="stroke:black;stroke-width:2" /><text x="37" y="14" fill="#000">Existing Dike</text><line x1="2" y1="30" x2="27" y2="30" style="stroke:rgb(255,0,0);stroke-width:1"/><text x="37" y="34" fill="#000">Breached Dike</text></svg>');
-		}
+			$('#replace').append('<li style="list-style-type:none"><span><div style="float: left; display: inline-block; width:15px; height:15px; background-color:' + colors[i] + '"></div><div class="legendSpacer" style="width:10px; display: inline-block"></div>'+breaks[i]+ '</span></li>')
+		};
 	};
 
 
@@ -332,7 +381,40 @@
 		var description = 'A description of median income';
 
 		createLegend(colorArray, classBreaks, description, title);		
-	} 
+	}
+
+	/////////////////////////////////////////
+	// aggregate flooding statistics panel // 
+	/////////////////////////////////////////
+
+	//get aggregate flooding statistics data
+	function getAggregateStatistics()
+	{
+		$.ajax(aggregateFloodStatistics,
+		{
+			dataType: 'json',
+			success: function(response)
+			{
+				//dummy 
+				aggregateFloodStats = response;
+			}
+		}).done(function(response)
+		{
+			$('#numberOfDikeBreaks').html(aggregateFloodStats[currentIndex].numDikeBreaks);
+			$('#totalFloodedArea').html(aggregateFloodStats[currentIndex].floodArea);
+			$('#maxPropertyLosses').html(aggregateFloodStats[currentIndex].maxPropLosses);
+			$('#peopleAffected').html(aggregateFloodStats[currentIndex].numPeopleAffected);
+		})		
+	};
+
+	//update aggregate flooding statistics in info panel based on flood level
+	function updateAggregateStatistics()
+	{
+		$('#numberOfDikeBreaks').html(aggregateFloodStats[currentIndex].numDikeBreaks);
+		$('#totalFloodedArea').html(aggregateFloodStats[currentIndex].floodArea);
+		$('#maxPropertyLosses').html(aggregateFloodStats[currentIndex].maxPropLosses);
+		$('#peopleAffected').html(aggregateFloodStats[currentIndex].numPeopleAffected);
+	}
 
 
 
@@ -396,6 +478,8 @@
 
 			// call update layers
 			updateFloodLayers();
+
+			updateAggregateStatistics();
 
 		});
 	};
@@ -531,13 +615,7 @@
 
 		removeExtraLayers();
 
-		//add the first layer style
-		// floodDataArray[0].addTo(map);
-		// floodDataArray[0].eachLayer(function(layer)
-		// {
-		// 	console.log('adsfjk')
-		// 	layer.setStyle({color: 'blue', opacity: .5});
-		// });
+		updateAggregateStatistics();
 
 		$('#range').val(0);
 	};
@@ -571,32 +649,6 @@
 				map.removeLayer(layer)
 			};
 		});
-		// if(!map.hasLayer(breakPoints))
-		// {
-		// 	// dike.addTo(map);
-		// 	breakPoints.addTo(map);
-		// 	breakPoints.eachLayer(function(layer)
-		// 	{
-		// 		if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
-		// 		{
-		// 			map.removeLayer(layer)
-		// 		}
-		// 	});
-		// }
-		// else
-		// {
-		// 	breakPoints.eachLayer(function(layer)
-		// 	{
-		// 		if(layer.feature.properties.breakpoint == Number(currentIndex)+1)
-		// 		{
-		// 			map.addLayer(layer)
-		// 		}
-		// 		if(layer.feature.properties.breakpoint != Number(currentIndex)+1)
-		// 		{
-		// 			map.removeLayer(layer)
-		// 		}
-		// 	});
-		// };
 	};
 
 
@@ -604,11 +656,8 @@
 	function removeExtraLayers()
 	{
 		map.eachLayer(function(layer)
-		{
-			// if(layer._leaflet_id != 22 && layer._leaflet_id != 14496)
-			
-				map.removeLayer(layer);
-			
+		{			
+			map.removeLayer(layer);	
 		});
 		cartoDB_Map.addTo(map);
 		HERE_hybridDay.addTo(map);
@@ -725,10 +774,6 @@
 			{
 				layer.setStyle({fillColor: colorArray[4], fillOpacity: .8, stroke: false});
 			}
-			// else
-			// {
-			// 	layer.setStyle({fillColor: colorArray[5], fillOpacity: .5, stroke: false});
-			// }
 		});
 	};
 
@@ -773,10 +818,6 @@
 			{
 				layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
 			};
-			// else
-			// {
-			// 	layer.setStyle({fillColor: '#a63603', fillOpacity: .8, stroke: false});
-			// }
 		});
 	};
 
@@ -821,10 +862,6 @@
 			{
 				layer.setStyle({fillColor: colorArray[5], fillOpacity: .8, stroke: false});
 			}
-			// else
-			// {
-			// 	layer.setStyle({fillColor: '#67000d', fillOpacity: .8, stroke: false});
-			// }
 		});
 	};
 
@@ -973,28 +1010,6 @@
 				});
 			}
 		});
-
-		//flood levels 2-7
-		// for(var i = 1; i < fileArray.length; i++)
-		// {
-		// 	$.ajax(fileArray[i],
-		// 	{
-		// 		dataType: 'json',
-		// 		success: function(response)
-		// 		{
-		// 			layer = L.geoJson(response,
-		// 			{
-		// 				style: function(feature)
-		// 				{
-		// 					return {fillColor: '#128AB3', stroke: false, fillOpacity: .2, clickable: false};
-		// 				}
-		// 			});		
-		// 		}
-		// 	}).then(function() {
-		// 		floodDataArray.splice(i,) = layer;
-		// 	});;
-		// };
-
 
 		//breakpoints
 		$.ajax(dikeFileArray[0],

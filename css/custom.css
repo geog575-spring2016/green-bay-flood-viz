@@ -73,7 +73,7 @@
 
 #range
 {
-    transform: rotate(270deg);
+/*    transform: rotate(270deg);*/
     height:50%;
     display: inline-block;
 }
@@ -83,6 +83,21 @@
     text-align: center;
 }
 
+
+#showInfoPanel
+{
+    top: 342px;
+    position: absolute;
+}
+
+.btn-cstm-info
+{
+    width: 194px;
+    margin-top: .5%;
+    background-color: #222222;
+    color:  #2E8599;
+    text-align: left;  
+}
 
 #forward 
 {
@@ -107,13 +122,20 @@
 
 #infoPanel
 {
-    position: relative;
-    top: 62px;
-    height: 280px; 
+    position: absolute;
+    top: 130px;
+    height: 230px; 
     text-align: left;
     z-index: 1; 
-    float: right; 
-    margin-right: 10px; 
+    left:209px;
+    margin-right: .4%;
+}
+
+
+.infoPanelText
+{
+    height: 15px;
+    color: #2E8599;
 }
 
 .panelText
@@ -139,13 +161,14 @@
     border-radius: 5px;
     padding: .25%;
     margin-bottom: 4%;
+    margin-left: 11px;
 }
 
 #legendPanel
 {
   z-index: 1;
-  position: relative;
-  float: left;
+  position: absolute;
+  left: 209px;
   margin-top: 389px;
   margin-right: .4%;
   background-color: #aaa;
@@ -242,6 +265,7 @@
 {
     border-top: 1px solid #373739;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .skip
@@ -302,12 +326,12 @@ button.close:hover
 .leaflet-control-zoom
 {
     position: relative;
-    left: 200px;
+    left: 208px;
 }
 
 .leaflet-control-zoom-in
 {
-    margin-top: 52px;
+    margin-top: 50px;
     border-right:solid 2px #2E8599 ;
     border-left:solid 2px #2E8599 ;
     border-top:solid 2px #2E8599; 

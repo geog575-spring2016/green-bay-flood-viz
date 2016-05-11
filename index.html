@@ -81,18 +81,22 @@
             <!-- water level slider -->
             <div id="sliderPanel" class="panel">
                 <p class="panelText head">Slide to see water levels</p>
-
+<!-- 
                 <span class="skip" id="forward" >
                     <i class="fa fa-arrow-circle-right fa-lg white"></i>
-                </span>    
+                </span>     -->
 
                 <span id="sliderStuff">
                     <input id="range" class='range-slider round'  type="range">
                 </span>
 
-                <span class="skip" id="reverse" >
+<!--                 <span class="skip" id="reverse" >
                     <i class="fa fa-arrow-circle-left fa-lg white"></i>
-                </span> 
+                </span> -->
+
+                <div>
+                    <button id="showInfoPanel" class="btn btn-cstm-info">Flood Level Data</button>
+                </div>
             </div>
 
 
@@ -125,7 +129,6 @@
                 <i id="populationInfo" class="fa fa-question-circle-o fa-lg white btn btn-cstm-legend" aria-hidden="true"></i>
 
                 <span>
-
                     <button id="propertyLost" class="btn btn-cstm">Property Lost</button>
                 </span>
 
@@ -143,7 +146,7 @@
             </div>
 
             <div class='panel'>
-                <button class="btn btn-cstm-button">Agregate Flooding Stats</button>
+                <button id="loadAggregateStats" class="btn btn-cstm-button">Agregate Flooding Stats</button>
             </div>
 
             <div id="waterLevelLegend"></div>
@@ -152,31 +155,30 @@
 
         <!-- information panel -->
         <div id="infoPanel" class='panel'>
-            <p class="panelText head">Info Panel</p>
+            <div class="panelText head">
+                Info Panel
+                <button id="hideInfoPanel" type="button" class="close">×</button>         
+            </div>
+<!--             <p class="panelText head">Info Panel</p> -->
 
             <div>
-                <label class="info-label">Water Level</label>
-                <div id="waterLevel"></div>    
-            </div>
-            <hr class="lineBreak">
-            <div>
                 <label class="info-label">Number of Dike Breaks</label>
-                <div id="numberOfDikeBreaks"></div>    
+                <div id="numberOfDikeBreaks" class="infoPanelText"></div>    
             </div>
             <hr class="lineBreak">
             <div>
                 <label class="info-label">Total Flooded Area</label>
-                <div id="totalFloodedArea"></div>    
+                <div id="totalFloodedArea" class="infoPanelText"></div>    
             </div>
             <hr class="lineBreak">
             <div>
                 <label class="info-label">Max Property Losses</label>
-                <div id="maxPropertyLosses"></div>    
+                <div id="maxPropertyLosses" class="infoPanelText"></div>    
             </div>
             <hr class="lineBreak">
             <div>
                 <label class="info-label">Number of People Affected</label>
-                <div id="peopleAffected"></div>    
+                <div id="peopleAffected" class="infoPanelText"></div>    
             </div>
         </div>
 
